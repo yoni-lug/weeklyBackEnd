@@ -1,210 +1,177 @@
 import express from 'express'
 import bodyParser from "body-parser";
 import initialProducts from "./initialProducts.js"
-
-const app = express()
-
-app.use(express.urlencoded({ extended: true }));
- 
-app.use(express.json());
-
-const port = 5000
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
-
-//DATA BASE - MONGOOSE FUNCTIONS
-
+import multer from "multer"
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import path from "path"
+import {v2 as cloudinary} from 'cloudinary' 
 import mongoose from "mongoose";
 
-// ATLAS DATA BASE 
-mongoose.connect(
-  'mongodb+srv://yoni_lug:YEHONATAN11@cluster0weekly.8xvzm.mongodb.net/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true});
+import cloudinaryConfig from "./config/cloudinaryConfig.js"
+import exampleroute from "./routes/exampleRoute.js"
+import keys from "./config/keys.js"
+import Order from "./models/order.js"
+import Product from "./models/product.js"
+import findVendorProducts from "./routes/findVendorProducts.js"
+import deleteVendorProduct from './routes/deleteVendorProduct.js';
+import post_newproduct from './routes/post_newproduct.js';
+import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
-//LOCAL DATA BASE ON PORT 27017
-// mongoose.connect('mongodb://localhost:27017/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true});
+
+const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+console.log (__dirname);
+
+
+const app = express()
+const upload = multer ({dest:"uploads/"})
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+const PORT = process.env.PORT || 5000  // Dynamic port  from server or locally developement enivornment
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`)
+})
+
+/
+// ATLAS DATA BASE /DATA BASE - MONGOOSE FUNCTIONS
+mongoose.connect(
+  'mongodb+srv://'+keys.mongoDB.userName+':'+keys.mongoDB.passWord+'@cluster0weekly.8xvzm.mongodb.net/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true});
+  // mongoose.connect('mongodb://localhost:27017/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true}); //LOCAL DATA BASE ON PORT 27017
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
   console.log ( "data base is connected")
 });
-const orderSchema = new mongoose.Schema({
-  productHeader: String,
-  productDescription: String,
-  vendor: String,
-  price: String,
-  units: String,
-  orderQnt: Number,
-  orderWeek: Number
- });
- 
- const Order=mongoose.model ("order",orderSchema);
- 
-const productSchema = new mongoose.Schema({
-  productHeader: String,
-  productDescription: String,
-  vendor: String,
-  price: String,
-  units: String,
-  deliveryArea: Object
- });
 
-const Product = mongoose.model("Product", productSchema);
+// Product model is imported from "./server/models"
 
-const firstProduct = new Product({
-    productHeader :"ארטישוק במבצע" ,
-    productDescription:"גויבות ב 30 שקל לכמות של 4 קילו, מחיר בשופרסל דיל 120 שקל קילו",
-    // productImage:artishokImage,
-    vendor: "משק חקלאי הגויבות",
-    // the cost in shekel
-    price: "30 שח",
-    // the type of order- package, units, several units
-    units: "ארגז 10 יחידות כ 3 קילו"
-});
-// SVAE THE FIRST PORDUCT ONLY ONE TIME - MAKE IT NOTE AFTER IT
-// firstProduct.save(function (err){          
-//    if (!err){}
-// console.log(" SAVE DEFAULT PRODUCTS COMPLETED");
-// });
+// GET Routes
+exampleroute(app) // this function activate GET requet in exapmpe route
+findVendorProducts (app) // this function activate Get request from /findVendorProducts
+deleteVendorProduct (app)
 
 
+//POST Routes
+post_newproduct(app) // this function activate Post request from /post_newproduct (llok at routes folder)
+post_orderThisWeek (app)
+
+//
 
 //EXPRESS POST AND GET FUNCTIONS
 
-// app.get('/vendor', (req, res) => {
-  
-//   res.send("Get severe is working")
-// })
-
+// TODO START GET PROCESS FOR PRODUCTS - DONT SURE IT WORK
 app.get('/products', (req, res) => {
-  Product.findOne({ _id: "60284e1d6854d208ed3ee7a8" }, function (err, product) {
-    console.log(product)
-    res.send(product)
-   //res.send("Get products severe is working")
+  //Product.findOne({ _id: "60284e1d6854d208ed3ee7a8" }, function (err, product) {
+  Product.findOne({ }, function (err, product) {
+      console.log(product)
+      res.send(product)
     console.log("Get request is passing")
   });
 })
+// END GET PROCESS FOR PRODUCT 
 
-app.post ("/newproduct", function(req,res){
-  const newProduct = new Product({
-    productHeader : req.body.productHeader,
-    productDescription: req.body.productDescription,
-    vendor:"" ,
-    price: req.body.productCost,
-    units: req.body.productPackage,
-    deliveryArea: req.body.deliveryArea
-  })
-  newProduct.save(function (err){
-  if (!err){
-   console.log(" save new Product completed")
-   Product.find ({}, function(err,products){
-    if (err){
-      console.log (err)
-    } else { 
-      res.send ("DONE")
-    }
-   })
-   
-  };
-});
-})
 
-app.post("/vendor",function (req,res){
-  //console.log(req.body)
-  const postName= {
-    firstName: "Hila",
-    lasyName: "Lugassy",
-    privousName : req.body
+
+//upload image
+app.post("/productImage",upload.single("file"),function (req,res){
+  console.log ( "REQUEST --------------------------------------------")
+  //console.log (req.body)
+  console.log (req.file)
+  // console.log (req.file.originalname)
+  const productID = req.file.originalname
+  console.log( "productID = " + productID)
+ 
+ //Arrange the Local storgae in the Server - in case using the server
+  const imageStoringPath = {
+    fileName : req.file.filename,
+    destination: req.file.destination,
+    relativePath: req.file.path,
+    serverAdress: __dirname,
+    serverAdressLocalServer: localServerPath, //ONLY FOR LOCAL SERVER
+    folderPath: path.join(__dirname,req.file.destination),
+    folderPathLocalServer: path.join(localServerPath,req.file.destination), //ONLY FOR LOCAL SERVER
+    fullPathLocation: path.join(__dirname,req.file.path),
+    fullPathLocationLocalServer: path.join (localServerPath,req.file.path) //ONLY FOR LOCAL SERVER
   }
-
-  res.send (postName)
-})
-
-app.get ("/findVendorProducts", function (req,res){
-  Product.find ({}, function(err,products){
-    if (err){
-      console.log (err)
-    } else { 
-      console.log("findvendor get fucntion")
-      res.send (products)
-    }
-   })
-  });
-
-app.get ("/deleteVendorProduct", function(req,res){
-  console.log ("request is" +req.query.id)
-  Product.findOne ({_id:req.query.id}, function (err,selectedProduct){
-    if (err){
-      console.log(err)
-    } else {
-      console.log (selectedProduct)
-    }
-  })
-  Product.deleteOne({_id: req.query.id }, function (err) {
-    if (err){
-      console.log (err)
-    };
-    // deleted at most one document
-  });
-  Product.find ({}, function(err,products){
-    if (err){
-      console.log (err)
-    } else { 
-      console.log("findvendor get fucntion")
-      res.send (products)
-    }
-   })
-  
-})
-
-
-app.post ("/orderThisWeek", function(req,res){
-  const newOrder = new Order({
-    productHeader : req.body.productHeader,
-    productDescription: req.body.productDescription,
-    vendor:req.body.vendor, 
-    price: req.body.price,
-    units: req.body.unit 
-  })
-  newProduct.save(function (err){
-  if (!err){
-   console.log(" save new Product completed")
-   Product.find ({}, function(err,products){
-    if (err){
-      console.log (err)
-    } else { 
-      res.send ("new order is sent")
-    }
-   })
+  console.log ("RELATIVE PATH " + imageStoringPath.relativePath)
+  console.log ("imageStoringPath OBJECT");   
+  console.log (imageStoringPath)
    
-  };
-});
+
+   //UPLOAD IMAGE TO CLOUDINARY
+   console.log(productID) 
+   cloudinary.uploader.upload(imageStoringPath.relativePath,
+      {tags:[productID]},
+   function(error, result) {
+     console.log(result, error)
+     console.log (result.secure_url)
+     console.log (result.tags)
+     res.send (result.secure_url)
+    // return (result)
+   });  
+    console.log ("whatis" )
+
+// NOW HERE NEED TO SEND THE CLOUDINARY PATH AND THE LOCAL PATH TO THE TEXT OBJECT
+
+   // console.log (imageCloudinaryDetails)
+  //  console.log ("end")
+//    db.products.update(
+//     { productID: productID },
+//     { $set:
+//        {
+//          quantity: 500,
+//          details: { model: "14Q3", make: "xyz" },
+//          tags: [ "coats", "outerwear", "clothing" ]
+//        }
+//     }
+//  )
+
 })
 
-  const name=[{
-  name: 'DB_Eclair',
-  calories: 100,
-  fat: 100,
-  carbs: 100,
-  protein: 100
-},
-{
-  name: 'Cupcake',
-  calories: 300,
-  fat: 30,
-  carbs: 60,
-  protein: 40
-},
-{
-  name: 'Gingerbread',
-  calories: 356,
-  fat: 16.0,
-  carbs: 49,
-  protein: 3.9
-}
-]
+// app.get ("/productImage", function (req,res){
+//   console.log ("path")
+//   console.log (req.query)
+//   const pathObject = JSON.parse (req.query.path)
+//   const pathDestinataion = pathObject.destination
+ 
+//   console.log (pathDestinataion)
+//   console.log (__dirname)
+//   const filepath=path.join(__dirname,pathDestinataion)
+//   console.log ("this is the file path"+ filepath)
+//   var options = {
+//    // root: path.join(filePath)
+   
+//     root:filepath
+   
+//   };
+
+//   //const fileName = pathObject.fileName; 
+//   const fileName = "picture.jpg"
 
 
+//   res.sendFile (fileName, options, function(err){
+//     if (err){
+//      console.log(err)
+//     } else 
+//       console.log ('Sent:', fileName);
+      
+//   })
+
+
+
+// })
+
+
+
+
+
+
+
+
+  
 
 
