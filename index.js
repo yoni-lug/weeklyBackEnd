@@ -9,14 +9,14 @@ import {v2 as cloudinary} from 'cloudinary'
 import mongoose from "mongoose";
 
 //import cloudinaryConfig from "./config/cloudinaryConfig.js"
-import exampleroute from "./routes/exampleRoute.js"
-import keys from "./config/keys.js"
-import Order from "./models/order.js"
-import Product from "./models/product.js"
-import findVendorProducts from "./routes/findVendorProducts.js"
-import deleteVendorProduct from './routes/deleteVendorProduct.js';
-import post_newproduct from './routes/post_newproduct.js';
-import post_orderThisWeek from './routes/post_orderThisWeek.js';
+import exampleroute from "./routes/exampleRoute.js -es-module-specifier-resolution=node" 
+import keys from "./config/keys.js -es-module-specifier-resolution=node"
+import Order from "./models/order.js -es-module-specifier-resolution=node"
+import Product from "./models/product.js -es-module-specifier-resolution=node"
+import findVendorProducts from "./routes/findVendorProducts.js -es-module-specifier-resolution=node"
+import deleteVendorProduct from './routes/deleteVendorProduct.js -es-module-specifier-resolution=node';
+import post_newproduct from './routes/post_newproduct.js -es-module-specifier-resolution=node';
+import post_orderThisWeek from './routes/post_orderThisWeek.js -es-module-specifier-resolution=node';
 
 
 const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 

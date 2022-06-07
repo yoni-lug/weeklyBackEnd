@@ -9,7 +9,7 @@
     "npm": "8.12.1"
   },
   "scripts": {
-    "start":"node --es-module-specifier-resolution=node index.js" 
+    "start":"node index.js" 
   },
   "author": "",
   "license": "ISC",
