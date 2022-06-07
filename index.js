@@ -8,7 +8,7 @@ import path from "path"
 import {v2 as cloudinary} from 'cloudinary' 
 import mongoose from "mongoose";
 
-import cloudinaryConfig from "./config/cloudinaryConfig.js"
+//import cloudinaryConfig from "./config/cloudinaryConfig.js"
 import exampleroute from "./routes/exampleRoute.js"
 import keys from "./config/keys.js"
 import Order from "./models/order.js"
@@ -35,7 +35,7 @@ app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
-/
+
 // ATLAS DATA BASE /DATA BASE - MONGOOSE FUNCTIONS
 mongoose.connect(
   'mongodb+srv://'+keys.mongoDB.userName+':'+keys.mongoDB.passWord+'@cluster0weekly.8xvzm.mongodb.net/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true});
@@ -73,6 +73,23 @@ app.get('/products', (req, res) => {
   });
 })
 // END GET PROCESS FOR PRODUCT 
+
+
+// COLUDINARY CONFIG
+
+
+// SETTING CLOUDINARY 
+
+ cloudinary.config({ 
+        cloud_name: 'weeklyisrael', 
+        api_key: '177196127645927', 
+        api_secret: 's1OG-IBtOKLlLFmofRdyvO8pnLA',
+        secure: true //  to ensure that your transformation URLs are always generated as HTTPS.
+    });
+
+
+
+
 
 
 
