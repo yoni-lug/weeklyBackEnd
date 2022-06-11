@@ -15,8 +15,8 @@ import Order from "./models/order.js"
 import Product from "./models/product.js"
 import findVendorProducts from "./routes/findVendorProducts.js"
 import deleteVendorProduct from './routes/deleteVendorProduct.js';
-// import post_newproduct from './routes/post_newproduct.js';
-// import post_orderThisWeek from './routes/post_orderThisWeek.js';
+import post_newproduct from './routes/post_newproduct.js';
+import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
 //TODO REMOVE 1
 var keys ={ 
@@ -63,16 +63,16 @@ db.once('open', function() {
 
 // GET Routes
 
-//TODO 1
+
 exampleroute(app) // this function activate GET requet in exapmpe route
 findVendorProducts (app) // this function activate Get request from /findVendorProducts
 deleteVendorProduct (app)
-//TODO 1 END
+
 
 //POST Routes
 //TODO2
-// post_newproduct(app) // this function activate Post request from /post_newproduct (llok at routes folder)
-// post_orderThisWeek (app)
+post_newproduct(app) // this function activate Post request from /post_newproduct (llok at routes folder)
+post_orderThisWeek (app)
 //TODO2 END
 //
 
