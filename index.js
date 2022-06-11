@@ -11,10 +11,10 @@ import mongoose from "mongoose";
 //import cloudinaryConfig from "./config/cloudinaryConfig.js"
 import exampleroute from "./routes/exampleRoute.js" 
 // import keys from "./config/keys.js"
-// import Order from "./models/order.js"
-// import Product from "./models/product.js"
-// import findVendorProducts from "./routes/findVendorProducts.js"
-// import deleteVendorProduct from './routes/deleteVendorProduct.js';
+import Order from "./models/order.js"
+import Product from "./models/product.js"
+import findVendorProducts from "./routes/findVendorProducts.js"
+import deleteVendorProduct from './routes/deleteVendorProduct.js';
 // import post_newproduct from './routes/post_newproduct.js';
 // import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
@@ -46,9 +46,7 @@ app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
-//TODO REMOVE3
-exampleroute(app) // this function activate GET requet in exapmpe route
-//TODO END REMOVE3
+
 
 // ATLAS DATA BASE /DATA BASE - MONGOOSE FUNCTIONS
 mongoose.connect(
@@ -66,9 +64,9 @@ db.once('open', function() {
 // GET Routes
 
 //TODO 1
-// exampleroute(app) // this function activate GET requet in exapmpe route
-// findVendorProducts (app) // this function activate Get request from /findVendorProducts
-// deleteVendorProduct (app)
+exampleroute(app) // this function activate GET requet in exapmpe route
+findVendorProducts (app) // this function activate Get request from /findVendorProducts
+deleteVendorProduct (app)
 //TODO 1 END
 
 //POST Routes
