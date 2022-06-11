@@ -9,7 +9,7 @@ import {v2 as cloudinary} from 'cloudinary'
 import mongoose from "mongoose";
 
 //import cloudinaryConfig from "./config/cloudinaryConfig.js"
-// import exampleroute from "./routes/exampleRoute.js" 
+import exampleroute from "./routes/exampleRoute.js" 
 // import keys from "./config/keys.js"
 // import Order from "./models/order.js"
 // import Product from "./models/product.js"
@@ -25,6 +25,7 @@ var keys ={
       passWord:"YEHONATAN11"
   }
 }
+
 // TODO REMOVE1 END
 
 
@@ -45,6 +46,9 @@ app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
+//TODO REMOVE3
+exampleroute(app) // this function activate GET requet in exapmpe route
+//TODO END REMOVE3
 
 // ATLAS DATA BASE /DATA BASE - MONGOOSE FUNCTIONS
 mongoose.connect(
@@ -201,14 +205,7 @@ db.once('open', function() {
 // })
 
 
-//TODO REMOVE 2
 
-app.get ('/', (req, res) => {
-  res.send(" yehonatan")
-  console.log("Get request is passing")
-});
-
-//TODO REMOVE2 END
 
 
 
