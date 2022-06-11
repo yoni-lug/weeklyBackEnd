@@ -27,6 +27,8 @@ var keys ={
 }
 // TODO REMOVE1 END
 
+
+
 const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 console.log (__dirname);
@@ -199,7 +201,14 @@ db.once('open', function() {
 // })
 
 
+//TODO REMOVE 2
 
+app.get ('/', (req, res) => {
+  res.send(" yehonatan")
+  console.log("Get request is passing")
+});
+
+//TODO REMOVE2 END
 
 
 
