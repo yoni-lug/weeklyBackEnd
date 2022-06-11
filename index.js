@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 
 //import cloudinaryConfig from "./config/cloudinaryConfig.js"
 import exampleroute from "./routes/exampleRoute.js" 
-// import keys from "./config/keys.js"
+import keys from "./config/keys.js"
 import Order from "./models/order.js"
 import Product from "./models/product.js"
 import findVendorProducts from "./routes/findVendorProducts.js"
@@ -19,12 +19,12 @@ import post_newproduct from './routes/post_newproduct.js';
 import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
 //TODO REMOVE 1
-var keys ={ 
-  mongoDB:{
-      userName:"yoni_lug",
-      passWord:"YEHONATAN11"
-  }
-}
+// var keys ={ 
+//   mongoDB:{
+//       userName:"yoni_lug",
+//       passWord:"YEHONATAN11"
+//   }
+// }
 
 // TODO REMOVE1 END
 
