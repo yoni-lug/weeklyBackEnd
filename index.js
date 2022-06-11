@@ -9,14 +9,14 @@ import {v2 as cloudinary} from 'cloudinary'
 import mongoose from "mongoose";
 
 //import cloudinaryConfig from "./config/cloudinaryConfig.js"
-import exampleroute from "./routes/exampleRoute.js -es-module-specifier-resolution=node" 
-import keys from "./config/keys.js -es-module-specifier-resolution=node"
-import Order from "./models/order.js -es-module-specifier-resolution=node"
-import Product from "./models/product.js -es-module-specifier-resolution=node"
-import findVendorProducts from "./routes/findVendorProducts.js -es-module-specifier-resolution=node"
-import deleteVendorProduct from './routes/deleteVendorProduct.js -es-module-specifier-resolution=node';
-import post_newproduct from './routes/post_newproduct.js -es-module-specifier-resolution=node';
-import post_orderThisWeek from './routes/post_orderThisWeek.js -es-module-specifier-resolution=node';
+// import exampleroute from "./routes/exampleRoute.js" 
+ import keys from "./config/keys.js"
+// import Order from "./models/order.js"
+// import Product from "./models/product.js"
+// import findVendorProducts from "./routes/findVendorProducts.js"
+// import deleteVendorProduct from './routes/deleteVendorProduct.js';
+// import post_newproduct from './routes/post_newproduct.js';
+// import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
 
 const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
@@ -50,28 +50,33 @@ db.once('open', function() {
 // Product model is imported from "./server/models"
 
 // GET Routes
-exampleroute(app) // this function activate GET requet in exapmpe route
-findVendorProducts (app) // this function activate Get request from /findVendorProducts
-deleteVendorProduct (app)
 
+//TODO 1
+// exampleroute(app) // this function activate GET requet in exapmpe route
+// findVendorProducts (app) // this function activate Get request from /findVendorProducts
+// deleteVendorProduct (app)
+//TODO 1 END
 
 //POST Routes
-post_newproduct(app) // this function activate Post request from /post_newproduct (llok at routes folder)
-post_orderThisWeek (app)
-
+//TODO2
+// post_newproduct(app) // this function activate Post request from /post_newproduct (llok at routes folder)
+// post_orderThisWeek (app)
+//TODO2 END
 //
 
 //EXPRESS POST AND GET FUNCTIONS
 
 // TODO START GET PROCESS FOR PRODUCTS - DONT SURE IT WORK
-app.get('/products', (req, res) => {
-  //Product.findOne({ _id: "60284e1d6854d208ed3ee7a8" }, function (err, product) {
-  Product.findOne({ }, function (err, product) {
-      console.log(product)
-      res.send(product)
-    console.log("Get request is passing")
-  });
-})
+//TODO3
+// app.get('/products', (req, res) => {
+//   //Product.findOne({ _id: "60284e1d6854d208ed3ee7a8" }, function (err, product) {
+//   Product.findOne({ }, function (err, product) {
+//       console.log(product)
+//       res.send(product)
+//     console.log("Get request is passing")
+//   });
+// })
+//TODO3 END
 // END GET PROCESS FOR PRODUCT 
 
 
@@ -79,14 +84,14 @@ app.get('/products', (req, res) => {
 
 
 // SETTING CLOUDINARY 
-
- cloudinary.config({ 
-        cloud_name: 'weeklyisrael', 
-        api_key: '177196127645927', 
-        api_secret: 's1OG-IBtOKLlLFmofRdyvO8pnLA',
-        secure: true //  to ensure that your transformation URLs are always generated as HTTPS.
-    });
-
+//TODO4
+//  cloudinary.config({ 
+//         cloud_name: 'weeklyisrael', 
+//         api_key: '177196127645927', 
+//         api_secret: 's1OG-IBtOKLlLFmofRdyvO8pnLA',
+//         secure: true //  to ensure that your transformation URLs are always generated as HTTPS.
+//     });
+//TODO4 END
 
 
 
@@ -94,60 +99,63 @@ app.get('/products', (req, res) => {
 
 
 //upload image
-app.post("/productImage",upload.single("file"),function (req,res){
-  console.log ( "REQUEST --------------------------------------------")
-  //console.log (req.body)
-  console.log (req.file)
-  // console.log (req.file.originalname)
-  const productID = req.file.originalname
-  console.log( "productID = " + productID)
+//TODO5
+// app.post("/productImage",upload.single("file"),function (req,res){
+//   console.log ( "REQUEST --------------------------------------------")
+//   //console.log (req.body)
+//   console.log (req.file)
+//   // console.log (req.file.originalname)
+//   const productID = req.file.originalname
+//   console.log( "productID = " + productID)
  
- //Arrange the Local storgae in the Server - in case using the server
-  const imageStoringPath = {
-    fileName : req.file.filename,
-    destination: req.file.destination,
-    relativePath: req.file.path,
-    serverAdress: __dirname,
-    serverAdressLocalServer: localServerPath, //ONLY FOR LOCAL SERVER
-    folderPath: path.join(__dirname,req.file.destination),
-    folderPathLocalServer: path.join(localServerPath,req.file.destination), //ONLY FOR LOCAL SERVER
-    fullPathLocation: path.join(__dirname,req.file.path),
-    fullPathLocationLocalServer: path.join (localServerPath,req.file.path) //ONLY FOR LOCAL SERVER
-  }
-  console.log ("RELATIVE PATH " + imageStoringPath.relativePath)
-  console.log ("imageStoringPath OBJECT");   
-  console.log (imageStoringPath)
+//  //Arrange the Local storgae in the Server - in case using the server
+//   const imageStoringPath = {
+//     fileName : req.file.filename,
+//     destination: req.file.destination,
+//     relativePath: req.file.path,
+//     serverAdress: __dirname,
+//     serverAdressLocalServer: localServerPath, //ONLY FOR LOCAL SERVER
+//     folderPath: path.join(__dirname,req.file.destination),
+//     folderPathLocalServer: path.join(localServerPath,req.file.destination), //ONLY FOR LOCAL SERVER
+//     fullPathLocation: path.join(__dirname,req.file.path),
+//     fullPathLocationLocalServer: path.join (localServerPath,req.file.path) //ONLY FOR LOCAL SERVER
+//   }
+//   console.log ("RELATIVE PATH " + imageStoringPath.relativePath)
+//   console.log ("imageStoringPath OBJECT");   
+//   console.log (imageStoringPath)
    
 
-   //UPLOAD IMAGE TO CLOUDINARY
-   console.log(productID) 
-   cloudinary.uploader.upload(imageStoringPath.relativePath,
-      {tags:[productID]},
-   function(error, result) {
-     console.log(result, error)
-     console.log (result.secure_url)
-     console.log (result.tags)
-     res.send (result.secure_url)
-    // return (result)
-   });  
-    console.log ("whatis" )
+//    //UPLOAD IMAGE TO CLOUDINARY
+//    console.log(productID) 
+//    cloudinary.uploader.upload(imageStoringPath.relativePath,
+//       {tags:[productID]},
+//    function(error, result) {
+//      console.log(result, error)
+//      console.log (result.secure_url)
+//      console.log (result.tags)
+//      res.send (result.secure_url)
+//     // return (result)
+//    });  
+//     console.log ("whatis" )
 
-// NOW HERE NEED TO SEND THE CLOUDINARY PATH AND THE LOCAL PATH TO THE TEXT OBJECT
+// // NOW HERE NEED TO SEND THE CLOUDINARY PATH AND THE LOCAL PATH TO THE TEXT OBJECT
 
-   // console.log (imageCloudinaryDetails)
-  //  console.log ("end")
-//    db.products.update(
-//     { productID: productID },
-//     { $set:
-//        {
-//          quantity: 500,
-//          details: { model: "14Q3", make: "xyz" },
-//          tags: [ "coats", "outerwear", "clothing" ]
-//        }
-//     }
-//  )
+//    // console.log (imageCloudinaryDetails)
+//   //  console.log ("end")
+// //    db.products.update(
+// //     { productID: productID },
+// //     { $set:
+// //        {
+// //          quantity: 500,
+// //          details: { model: "14Q3", make: "xyz" },
+// //          tags: [ "coats", "outerwear", "clothing" ]
+// //        }
+// //     }
+// //  )
 
-})
+// })
+
+//TODO5 END
 
 // app.get ("/productImage", function (req,res){
 //   console.log ("path")
