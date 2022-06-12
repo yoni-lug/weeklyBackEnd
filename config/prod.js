@@ -1,4 +1,4 @@
-var keys ={ 
+var prodKeys ={ 
     mongoDB:{
         userName:process.env.MONGODB_USER_NAME,
         passWord:process.env.MONGODB_PASSWORD
@@ -9,5 +9,4 @@ var keys ={
         api_secret: process.env.CLOUDINARY_API_SECRET
     }
 }
-
-export default keys
+export default prodKeys
