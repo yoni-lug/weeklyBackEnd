@@ -1,6 +1,7 @@
 import {v2 as cloudinary} from 'cloudinary'
 import keys from '../config/keys.js';
 
+
 // SETTING CLOUDINARY 
 
    let n=  cloudinary.config({ 
@@ -10,6 +11,8 @@ import keys from '../config/keys.js';
         secure: true //  to ensure that your transformation URLs are always generated as HTTPS.
     });
     
+
+
 export default n
 
 

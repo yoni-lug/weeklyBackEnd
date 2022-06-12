@@ -17,8 +17,10 @@ import findVendorProducts from "./routes/findVendorProducts.js"
 import deleteVendorProduct from './routes/deleteVendorProduct.js';
 import post_newproduct from './routes/post_newproduct.js';
 import post_orderThisWeek from './routes/post_orderThisWeek.js';
+import keyss from "./config/keyss.js"
 
-
+console.log ("resut")
+ console.log( keyss)
 
 
 const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
