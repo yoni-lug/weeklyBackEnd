@@ -8,7 +8,7 @@ import path from "path"
 import {v2 as cloudinary} from 'cloudinary' 
 import mongoose from "mongoose";
 
-import cloudinaryConfig from "./config/cloudinaryConfig.js"
+import cloudinaryConfig from "./services/cloudinary.js"
 import exampleroute from "./routes/exampleRoute.js" 
 import keys from "./config/keys.js"
 import Order from "./models/order.js"
