@@ -20,6 +20,7 @@ import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
 
 
+
 const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 console.log (__dirname);
@@ -35,6 +36,7 @@ const PORT = process.env.PORT || 5000  // Dynamic port  from server or locally d
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`)
 })
+
 
 
 
