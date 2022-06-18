@@ -19,7 +19,7 @@ export default function (app){
         if (err){
             console.log (err)
         } else { 
-            res.send ("DONE")
+            res.send ("New product (excluding image) was saved successfuly in the data base")
         }
         })
         

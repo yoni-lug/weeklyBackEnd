@@ -1,20 +1,28 @@
 //keys.js - figure out what set of crendentials to return
 
-let keysType = null;
-
-
-if (process.env.NODE_ENV=='production') {
-    //we are in production - retun the prod set of keys
+const keysType = async function () {
+    if (process.env.NODE_ENV=='production') {
+        //we are in production - retun the prod set of keys
+        
+        let keysType= await import ("./prod.js")
+        return  keysType
     
-    keysType= await import ("./prod.js")
-   
-} else {
-    //we are in development - return the dev keys
-    // import ("./try.js").then  (function (module){
-    //         export { module.default}
-    //     })
-    keysType= await import ("./dev.js")
+    } else {
+        //we are in development - return the dev keys
+        // import ("./try.js").then  (function (module){
+        //         export { module.default}
+        //     })
+        let keysType= await import ("./dev.js")
+        return keysType
+    }
+
 }
 
+const keys =await keysType()
 
-export default keysType.default
+export default keys.default
+
+
+
+
+

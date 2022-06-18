@@ -17,10 +17,8 @@ import findVendorProducts from "./routes/findVendorProducts.js"
 import deleteVendorProduct from './routes/deleteVendorProduct.js';
 import post_newproduct from './routes/post_newproduct.js';
 import post_orderThisWeek from './routes/post_orderThisWeek.js';
-import keyss from "./config/keyss.js"
 
-console.log ("resut")
- console.log( keyss)
+
 
 
 const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
@@ -89,15 +87,7 @@ post_orderThisWeek (app)
 // COLUDINARY CONFIG
 
 
-// SETTING CLOUDINARY 
-//TODO REMOVE
-//  cloudinary.config({ 
-//         cloud_name: 'weeklyisrael', 
-//         api_key: '177196127645927', 
-//         api_secret: 's1OG-IBtOKLlLFmofRdyvO8pnLA',
-//         secure: true //  to ensure that your transformation URLs are always generated as HTTPS.
-//     });
-//TODO REMOVE END
+
 
 
 //upload image
