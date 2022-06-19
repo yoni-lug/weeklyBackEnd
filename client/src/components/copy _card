@@ -1,0 +1,152 @@
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import CameraIcon from '@material-ui/icons/PhotoCamera';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
+
+
+import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input'
+// import { createMuiTheme } from '@material-ui/core/styles';
+import logo from "./artishok.jpg"
+
+// const theme = createMuiTheme({
+//   direction: 'rtl',
+// });
+
+const currencies = ["-", 1 ,2,3,4,5,6,7,8,9,10]
+
+
+const productDescription = "גויבות ב 30 שח. במקום במחיר של 100 שח לקילו"
+
+function GridUi(){
+    const useStyles = makeStyles((theme) => ({
+        icon: {
+          marginRight: theme.spacing(2),
+        },
+        heroContent: {
+          backgroundColor: theme.palette.background.paper,
+          padding: theme.spacing(8, 0, 6),
+        },
+        heroButtons: {
+          marginTop: theme.spacing(4),
+        },
+        cardGrid: {
+          paddingTop: theme.spacing(5),
+          paddingBottom: theme.spacing(5),
+        },
+        card: {
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        },
+        cardMedia: {
+          paddingTop: '56.25%', // 16:9
+        },
+        cardContent: {
+          flexGrow: 1,
+        },
+        footer: {
+          backgroundColor: theme.palette.background.paper,
+          padding: theme.spacing(6),
+        },
+        purchaseButton: {
+          marginRight: theme.spacing(2),
+          padding: theme.spacing(2,2),
+        },
+        
+      }));
+      
+      const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+      const classes = useStyles();
+      return (
+        
+          <div>
+           
+            <Container className={classes.cardGrid} maxWidth="lg">
+              {/* End hero unit */}
+              <Grid container spacing={5}>
+                {cards.map((card) => (
+                  <Grid item key={card} xs={12} sm={6} md={4}>
+                    <Card className={classes.card}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                            image={logo}
+                    
+                           // image="https://source.unsplash.com/random"
+                            title="Image title"
+                      />
+                      <CardContent className={classes.cardContent}>
+                        <Typography className="font" gutterBottom variant="h5" component="h2">
+                          גויבות במבצע
+                        </Typography>
+                        <Typography className="font">
+                          {productDescription}
+                        </Typography>
+                        
+                      </CardContent>
+                      <CardContent>
+                        <form>
+                         {/* <TextField id="filled-basic" label="כמות" variant="filled" />  */}
+                          {/* <Input placeholder="כמות" type="text" lable=" Filled" id="quantity" name="quantity"/> */}
+                          {/* <input placeholder="כמות" type="text" lable=" Filled" id="quantity" name="quantity"/> */}
+
+                          <TextField
+                              id="filled-select-currency-native"
+                              select
+                              label="כמות"
+                              // value={currency}
+                              // onChange={handleChange}
+                              // placeholder="בחר כמות"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              // helperText="כמות"
+                              variant="outlined"
+                            >
+                              {currencies.map((option) => (
+                                <option key={option} value={option}>
+                                  {option}
+                                </option>
+                              ))}
+                            </TextField>
+                            <Button className={classes.purchaseButton} size="large" variant="contained" color="primary">הוסף לסל קניות </Button>
+                            {/* <button type="submit" value="Submit"> הוספה לסל קניות</button> */}
+                          </form >    
+                        </CardContent>
+                          
+
+                      <CardActions>  
+                        <Typography style={{position: "relative"}}> ספק: משק צוריאל </Typography>
+                        {/* <Button size="small" color="primary">
+                          View
+                        </Button> */}
+                        <Button style={{marginRight:"150px"}} size="small" color="primary">
+                          פרטים נוספים
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </Container>
+        </div>
+         
+         
+   
+      );
+    }
+
+
+export default GridUi
