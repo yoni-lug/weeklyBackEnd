@@ -61,9 +61,14 @@ export default function BasicTable() {
 
 //TODO ADDED
 const [rows, setRows] = useState ([
-  {productDescription: "yONI",
+  {productDescription: "YONI",
   units: "100",
   price: "200"
+  },
+  {productDescription: "yehonatan",
+  units: 150,
+  price: 200
+
   }
 ]); 
 //TODO COMPLETE 
