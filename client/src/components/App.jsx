@@ -18,7 +18,7 @@ import axios from "axios";
 import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
 
 import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
-import DataTable from "./vendorPage/DataTable";
+import VendorProductList from "./vendorPage/VendorProductList";
 
 
 let theme = createMuiTheme({
@@ -50,7 +50,7 @@ function App() {
           <SignUp />
       </Route>
       <Route exact path="/vendorProductList">
-          <DataTable />
+          <VendorProductList />
       </Route>
       <Route exact path="/shoppingCart" >
           <Test/>

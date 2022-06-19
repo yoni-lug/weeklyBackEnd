@@ -54,27 +54,41 @@ export default function BasicTable() {
   const classes = useStyles();
 
   // HOOKS FOR the data from the Data Base
-  const [rows, setRows] = useState ([{}]); 
+  
+//TODO RETURN IT
+  //const [rows, setRows] = useState ([]); 
+//TODO RETURN IT END
 
+//TODO ADDED
+const [rows, setRows] = useState ([
+  {productDescription: "yONI",
+  units: "100",
+  price: "200"
+  }
+]); 
+//TODO COMPLETE 
+
+//TODO RETURN2
   //functions read the data from the data base when render
-useEffect( function(){
-    axios.get('/findVendorProducts')
-    .then(
-      function (response) {
-      // handle success
-      console.log(response.data);
-      console.log("read data ")
-      console.log( response.data)
-      setRows (response.data)
-      console.log (rows)
-    })
-    .catch(function (error) {
-      // handle error
-         console.log(error);
-      })
-  } 
-  , [])
+// useEffect( function(){
+//     axios.get('/findVendorProducts')
+//     .then(
+//       function (response) {
+//       // handle success
+//       console.log(response.data);
+//       console.log("read data ")
+//       console.log( response.data)
+//       setRows (response.data)
+//       console.log (rows)
+//     })
+//     .catch(function (error) {
+//       // handle error
+//          console.log(error);
+//       })
+//   } 
+//   , [])
 
+  //TODO RETURN2 END
   
   // HOOKS FOR the check box
      const [isChecked, setIsChecked] = useState ([]); 
