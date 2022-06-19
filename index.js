@@ -20,19 +20,6 @@ import deleteVendorProduct from './routes/deleteVendorProduct.js';
 import post_newproduct from './routes/post_newproduct.js';
 import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
-//HEROKU DEPLYMNET PREPEATION
-if (process.env.NODE_ENV === "production") {
-  //Express will serve up prodution assests like our main.js or main.css file!)
-  app.use (express.static ("client/build"));
-
-  //Express will serve up the index.html file if it doesnt recognize the route
-  //const path = require ("path")  - THIS LINE GOT UP TO THE IMPORT 
-  app.get ("*", (req,res)=>{
-    res.sendFile(path.resolve(__dirname,'client','build', 'index.html'));
-  })
-}
-
-
 
 // const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
 // const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -49,6 +36,18 @@ const PORT = process.env.PORT || 5000  // Dynamic port  from server or locally d
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`)
 })
+
+//HEROKU DEPLYMNET PREPEATION
+if (process.env.NODE_ENV === "production") {
+  //Express will serve up prodution assests like our main.js or main.css file!)
+  app.use (express.static ("client/build"));
+
+  //Express will serve up the index.html file if it doesnt recognize the route
+  //const path = require ("path")  - THIS LINE GOT UP TO THE IMPORT 
+  app.get ("*", (req,res)=>{
+    res.sendFile(path.resolve(__dirname,'client','build', 'index.html'));
+  })
+}
 
 
 
