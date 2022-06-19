@@ -54,7 +54,7 @@ export default function BasicTable() {
   const classes = useStyles();
 
   // HOOKS FOR the data from the Data Base
-  const [rows, setRows] = useState ([]); 
+  const [rows, setRows] = useState ([{}]); 
 
   //functions read the data from the data base when render
 useEffect( function(){
@@ -66,6 +66,7 @@ useEffect( function(){
       console.log("read data ")
       console.log( response.data)
       setRows (response.data)
+      console.log (rows)
     })
     .catch(function (error) {
       // handle error
