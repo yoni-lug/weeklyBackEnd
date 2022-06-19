@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import initialProducts from "./initialProducts.js"
 import multer from "multer"
 import path from "path"
-//import { dirname } from 'path';
+import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import {v2 as cloudinary} from 'cloudinary' 
@@ -21,9 +21,9 @@ import post_newproduct from './routes/post_newproduct.js';
 import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
 
-// const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
-// const __dirname = dirname(fileURLToPath(import.meta.url));
-// console.log (__dirname);
+const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+console.log (__dirname);
 
 
 const app = express()
@@ -49,7 +49,8 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 
-
+console.log ("dirname")
+console.log(__dirname)
 
 
 // ATLAS DATA BASE /DATA BASE - MONGOOSE FUNCTIONS
