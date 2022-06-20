@@ -79,9 +79,12 @@ const [rows, setRows] = useState ([
         // console.log (rows);
          let list = await axios.get('/findVendorProducts')
         // handle success
-          console.log("read data ")
-          console.log( list.data)
-          setRows (list.data)   
+        console.log (typeof list)
+        console.log("read data ")
+          
+          console.log (list)
+          //console.log( list.data)
+         // setRows (list.data)   
      }
      catch (error) {
       // handle error
