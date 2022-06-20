@@ -71,32 +71,6 @@ const [rows, setRows] = useState ([
 
   }
 ]); 
-//TODO COMPLETE 
-console.log ("render1")
-//TODO RETURN2
-  //functions read the data from the data base when render
-// useEffect(  function(){
-//     console.log ("render 2 " + rows)
-//     console.log (rows)
-//     axios.get('/findVendorProducts')
-//     .then(
-//       function (response) {
-//       // handle success
-    
-//       console.log("read data ")
-//       console.log( response.data)
-//       setRows (response.data)
-//       console.log (rows)
-//     })
-//     .catch(function (error) {
-//       // handle error
-//          console.log(error);
-//       })
-//   } 
-//   , [])
-
- 
-
 
   useEffect( function(rows){
     const fetchData =  async function (){
@@ -107,20 +81,14 @@ console.log ("render1")
         // handle success
           console.log("read data ")
           console.log( list.data)
-          setRows (list.data)
-         
+          setRows (list.data)   
      }
      catch (error) {
-      console.log (error)
+      // handle error
+      console.log (error) 
      }
     }
     fetchData ()
-    
-    // .catch(function (error) {
-    //   // handle error
-    //      console.log(error);
-    //   })
-   
 }, [])
 
   //TODO RETURN2 END
@@ -237,9 +205,23 @@ console.log ("render1")
         </TableHead>
        
         <TableBody>
-          {rows.map((row) => (
+        {/* TODO */}
+        <TableRow >
+        <TableCell align="right" component="th" scope="row" >"productHeader"</TableCell>
+              <TableCell align="right">"productDescription"</TableCell>
+              <TableCell align="right">"units"</TableCell>
+              <TableCell align="right">"price"</TableCell>
+              <TableCell align="right">"vendor"</TableCell>
+              <TableCell align="right">{editIcon("1")}</TableCell>
+              <TableCell align="right">{deleteIcon("2")}</TableCell>
+
+      </TableRow>
+
+
+{/* TODO START */}
+          {/* {rows.map((row) => (
             
-            <TableRow key={row._id}>
+            <TableRow key={row._id}> */}
 
             {/* <Checkbox
               color="primary"
@@ -253,19 +235,19 @@ console.log ("render1")
               }} 
             /> */}
 
-              <TableCell align="right" component="th" scope="row" >
-                {row.productHeader}
-              </TableCell>
+              {/* <TableCell align="right" component="th" scope="row" >{row.productHeader}</TableCell>
               <TableCell align="right">{row.productDescription}</TableCell>
               <TableCell align="right">{row.units}</TableCell>
               <TableCell align="right">{row.price}</TableCell>
               <TableCell align="right">{row.vendor}</TableCell>
               <TableCell align="right">{editIcon(row._id)}</TableCell>
-              <TableCell align="right">{deleteIcon(row._id)}</TableCell>
+              <TableCell align="right">{deleteIcon(row._id)}</TableCell> */}
                
-            </TableRow>
+            {/* </TableRow>
           ))}
-        </TableBody>
+     {/* TODO END */}
+
+        </TableBody> 
       </Table>
     </TableContainer>
       {/* <AddCircleIcon 
