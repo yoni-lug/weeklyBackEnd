@@ -81,8 +81,8 @@ const [rows, setRows] = useState ([
         // handle success
         console.log (typeof list)
         console.log("read data ")
-          
-          console.log (list)
+          let list1 = list
+          console.log (list1)
           //console.log( list.data)
          // setRows (list.data)   
      }
