@@ -7,7 +7,7 @@ export default function (app) {
                 console.log (err)
             } else { 
                 console.log("findvendor get fucntion")
-                res.send ("YONIIIIIIIIIIIIIIIII")
+                res.send ({title:"YONIIIIIIIIIIIIIIIII"})
                 // res.send (products)
             }
         })
