@@ -21,6 +21,7 @@ import post_newproduct from './routes/post_newproduct.js';
 import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
 
+
 const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 console.log (__dirname);
@@ -31,6 +32,8 @@ const upload = multer ({dest:"uploads/"})
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+
 
 const PORT = process.env.PORT || 5000  // Dynamic port  from server or locally developement enivornment
 app.listen(PORT, () => {
@@ -49,8 +52,6 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 
-console.log ("dirname")
-console.log(__dirname)
 
 
 // ATLAS DATA BASE /DATA BASE - MONGOOSE FUNCTIONS
