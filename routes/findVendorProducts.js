@@ -7,10 +7,9 @@ export default function (app) {
                 console.log (err)
             } else { 
                 console.log("findvendor get fucntion")
-                const result = {title:"YONIIIIIIIIIIIIIIIII"}
-                const result1 = JSON.stringify(result)
-                res.send (result1)
-                // res.send (products)
+                //const result = {title:"YONIIIIIIIIIIIIIIIII"}
+                //const result1 = JSON.stringify(result)
+                res.send (products)
             }
         })
     });
