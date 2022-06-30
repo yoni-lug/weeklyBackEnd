@@ -40,6 +40,13 @@ app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
+//TODO -  ADDED TO CHECK IF THE GET RESPONSE WORK
+app.get ("/tryOne", function(req,res){
+  console.log ("yehonatan One")
+  res.send("Yehonatan One")
+})
+//TODO END
+
 //HEROKU DEPLYMNET PREPEATION
 if (process.env.NODE_ENV === "production") {
   //Express will serve up prodution assests like our main.js or main.css file!)
@@ -51,6 +58,14 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname,'client','build', 'index.html'));
   })
 }
+
+//TODO -  ADDED TO CHECK IF THE GET RESPONSE WORK
+app.get ("/tryTwo", function(req,res){
+  console.log ("yehonatan Two")
+  res.send ("Yehonatan-Two")
+})
+//TODO END
+
 
 
 
