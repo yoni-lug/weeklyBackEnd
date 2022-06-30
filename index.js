@@ -47,17 +47,7 @@ app.get ("/tryOne", function(req,res){
 })
 //TODO END
 
-//HEROKU DEPLYMNET PREPEATION
-if (process.env.NODE_ENV === "production") {
-  //Express will serve up prodution assests like our main.js or main.css file!)
-  app.use (express.static ("client/build"));
 
-  //Express will serve up the index.html file if it doesnt recognize the route
-  //const path = require ("path")  - THIS LINE GOT UP TO THE IMPORT 
-  app.get ("*", (req,res)=>{
-    res.sendFile(path.resolve(__dirname,'client','build', 'index.html'));
-  })
-}
 
 //TODO -  ADDED TO CHECK IF THE GET RESPONSE WORK
 app.get ("/tryTwo", function(req,res){
@@ -213,7 +203,17 @@ app.post("/productImage",upload.single("file"),function (req,res){
 
 
 
+//HEROKU DEPLYMNET PREPEATION
+if (process.env.NODE_ENV === "production") {
+  //Express will serve up prodution assests like our main.js or main.css file!)
+  app.use (express.static ("client/build"));
 
+  //Express will serve up the index.html file if it doesnt recognize the route
+  //const path = require ("path")  - THIS LINE GOT UP TO THE IMPORT 
+  app.get ("*", (req,res)=>{
+    res.sendFile(path.resolve(__dirname,'client','build', 'index.html'));
+  })
+}
 
 
 
