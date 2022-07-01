@@ -8,8 +8,7 @@ import { fileURLToPath } from 'url';
 
 import {v2 as cloudinary} from 'cloudinary' 
 import mongoose from "mongoose";
-import cloudinaryConfig from "./services/cloudinary.js"
-import exampleroute from "./routes/exampleRoute.js" 
+import cloudinaryConfig from "./services/cloudinary.js" 
 import keys from "./config/keys.js"
 //import Order from "./models/order.js"
 
@@ -21,9 +20,10 @@ import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
 //TODO PROBALABLY NOT NEEDED 
 // const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+
 // console.log (__dirname);
 
+async function index() {
 const app = express()
 const upload = multer ({dest:"uploads/"})
 
@@ -32,15 +32,19 @@ app.use(express.json());
 
 
 //ATLAS DATA BASE /DATA BASE - MONGOOSE FUNCTIONS
-mongoose.connect(
+
+
+await mongoose.connect(
   'mongodb+srv://'+keys.mongoDB.userName+':'+keys.mongoDB.passWord+'@cluster0weekly.8xvzm.mongodb.net/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true});
   // mongoose.connect('mongodb://localhost:27017/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true}); //LOCAL DATA BASE ON PORT 27017
-const db = mongoose.connection;
+ const  db = mongoose.connection;
  db.on('error', console.error.bind(console, 'connection error:'));
  db.once('open', function() {
   // we're connected!
   console.log ( "data base is connected")
+  
 });
+
 
 //TODO WHAT IS THE BEST PRACTICES TO SYNC THE DATA BASE TO ACTIVATE BEFORE USING IT 
 const PORT = process.env.PORT || 5000  // Dynamic port  from server or locally developement enivornment
@@ -53,7 +57,6 @@ const Product = productModel() // Product model is imported with intial values
 
 
 // GET Routes
-exampleroute(app) // this function activate GET requet in exapmpe route
 findVendorProducts (app,Product) // this function activate Get request from /findVendorProducts
 deleteVendorProduct (app,Product)
 
@@ -154,6 +157,9 @@ app.post("/productImage",upload.single("file"),function (req,res){
 // })
 
 //HEROKU DEPLYMNET PREPEATION
+const __dirname = dirname(fileURLToPath(import.meta.url));
+console.log ("dirname")
+console.log (__dirname)
 if (process.env.NODE_ENV === "production") {
   //Express will serve up prodution assests like our main.js or main.css file!)
   app.use (express.static ("client/build"));
@@ -165,7 +171,8 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 
-
+}
+index()
 
 
   
