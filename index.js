@@ -21,7 +21,7 @@ import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
 //TODO PROBALABLY NOT NEEDED 
 // const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
-// const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 // console.log (__dirname);
 
 const app = express()
