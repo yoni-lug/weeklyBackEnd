@@ -1,8 +1,8 @@
 import mongoose from "mongoose"
 
-const Product = mongoose.model ("Product")
+//const Product = mongoose.model ("Product")
 
-export default function (app){
+export default function (app, Product){
     app.post ("/orderThisWeek", function(req,res){
         const newOrder = new Order({
         productHeader : req.body.productHeader,

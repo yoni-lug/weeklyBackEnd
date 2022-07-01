@@ -102,24 +102,6 @@ export default function InsertProduct() {
     })
   }
 
-// PRIGINAL----------------------------------------------
-  // function handleSubmit (event){
-  //   event.preventDefault()
-  //   axios.post('/newProduct',newProduct)
-  //     .then(function (response) {
-  //     // handle success
-  //     console.log(response.data);
-  //     })
-  //     .catch(function (error) {
-  //    // handle error
-  //     console.log(error);
-  //     })
-
-  //   console.log (event.target)
-
-  //   routeChange(); // USING THE USE HISTORY TO ROUTE CHANGE
-  // }
-//-------------------------------------------------------------
   function handleSubmit (event){
     event.preventDefault()
     
@@ -175,11 +157,6 @@ export default function InsertProduct() {
     
     console.log ("!!!!!ATFTER THE IMAGE ")
    
-   
-   
-   
-   
-    
       
     routeChange(); // USING THE USE HISTORY TO ROUTE CHANGE
    }

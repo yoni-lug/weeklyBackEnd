@@ -55,40 +55,18 @@ export default function BasicTable() {
 
   // HOOKS FOR the data from the Data Base
   
-//TODO RETURN IT
-  //const [rows, setRows] = useState ([]); 
-//TODO RETURN IT END
-
-//TODO ADDED
-const [rows, setRows] = useState ([
-  {productDescription: "YONI",
-  units: "100",
-  price: "200"
-  },
-  {productDescription: "yehonatan",
-  units: 150,
-  price: 200
-
-  }
-]); 
+const [rows, setRows] = useState ([]); 
 
   useEffect( function(rows){
     const fetchData =  async function (){
       try {
-        console.log ("render 2 " + rows)
-        // console.log (rows);
-         let list = await axios.get('/findVendorProducts')
+        let list = await axios.get('/findVendorProducts')
         // handle success
-        console.log (typeof list)
-        console.log("read data ")
-         
-          console.log (list)
-          //console.log( list.data)
-         // setRows (list.data)   
-     }
-     catch (error) {
+        setRows (list.data)   
+      }
+      catch (error) {
       // handle error
-      console.log (error) 
+        console.log (error) 
      }
     }
     fetchData ()
@@ -206,51 +184,20 @@ const [rows, setRows] = useState ([
             
           </TableRow>
         </TableHead>
-       
-        <TableBody>
-        {/* TODO */}
-        <TableRow >
-        <TableCell align="right" component="th" scope="row" >"productHeader"</TableCell>
-              <TableCell align="right">"productDescription"</TableCell>
-              <TableCell align="right">"units"</TableCell>
-              <TableCell align="right">"price"</TableCell>
-              <TableCell align="right">"vendor"</TableCell>
-              <TableCell align="right">{editIcon("1")}</TableCell>
-              <TableCell align="right">{deleteIcon("2")}</TableCell>
-
-      </TableRow>
-
-
-{/* TODO START */}
-          {/* {rows.map((row) => (
-            
-            <TableRow key={row._id}> */}
-
-            {/* <Checkbox
-              color="primary"
-             
-              className= {classes.editIcon}
-              inputProps={{ 'aria-label': 'checkbox per row'}} 
-              onChange={function(event){
-                return(
-                  handleCheckboxChange(event,row._id)
-                )
-              }} 
-            /> */}
-
-              {/* <TableCell align="right" component="th" scope="row" >{row.productHeader}</TableCell>
-              <TableCell align="right">{row.productDescription}</TableCell>
-              <TableCell align="right">{row.units}</TableCell>
-              <TableCell align="right">{row.price}</TableCell>
-              <TableCell align="right">{row.vendor}</TableCell>
-              <TableCell align="right">{editIcon(row._id)}</TableCell>
-              <TableCell align="right">{deleteIcon(row._id)}</TableCell> */}
-               
-            {/* </TableRow>
-          ))}
-     {/* TODO END */}
-
-        </TableBody> 
+            <TableBody>
+              {rows.map((row) => (
+    
+                <TableRow key={row._id}>
+                  <TableCell align="right" component="th" scope="row" >{row.productHeader}</TableCell>
+                  <TableCell align="right">{row.productDescription}</TableCell>
+                  <TableCell align="right">{row.units}</TableCell>
+                  <TableCell align="right">{row.price}</TableCell>
+                  <TableCell align="right">{row.vendor}</TableCell>
+                  <TableCell align="right">{editIcon(row._id)}</TableCell>
+                  <TableCell align="right">{deleteIcon(row._id)}</TableCell>
+                </TableRow>
+              ))}
+          </TableBody> 
       </Table>
     </TableContainer>
       {/* <AddCircleIcon 

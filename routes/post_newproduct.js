@@ -1,16 +1,16 @@
 import  mongoose  from "mongoose";
-const Product = mongoose.model ("Product");
+//const Product = mongoose.model ("Product");
 
-export default function (app){
+export default function (app,Product){
     app.post ("/newproduct", function(req,res){
         const newProduct = new Product({
-        productID: req.body.productID,
-        productHeader : req.body.productHeader,
-        productDescription: req.body.productDescription,
-        vendor:"" ,
-        price: req.body.productCost,
-        units: req.body.productPackage,
-        deliveryArea: req.body.deliveryArea
+            productID: req.body.productID,
+            productHeader : req.body.productHeader,
+            productDescription: req.body.productDescription,
+            vendor:"" ,
+            price: req.body.productCost,
+            units: req.body.productPackage,
+            deliveryArea: req.body.deliveryArea
         })
         newProduct.save(function (err){
         if (!err){

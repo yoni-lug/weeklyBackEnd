@@ -1,6 +1,5 @@
 import mongoose  from "mongoose";
 
-function productModel(){
   const productSchema = new mongoose.Schema({
       productID: String,
       productHeader: String,
@@ -14,7 +13,6 @@ function productModel(){
     });
     
   const Product = mongoose.model("Product", productSchema);
-  
 
   const firstProduct = new Product({
       productHeader :"ארטישוק במבצע" ,
@@ -28,20 +26,20 @@ function productModel(){
       });
 
   Product.find( {} , function(err, products){
-    
+    //console.log ("the products")
+    //console.log (products)
     if (err) {
       console.log ("error")
       console.log (err)
     }
     //SAVE DEFAULT  THE FIRST PORDUCT ONLY ONE TIME - MAKE IT NOTE AFTER IT
-    if (!products.length){
-      firstProduct.save (function (err){          
-         if (!err){}
-      console.log(" SAVE TRY DEFAULT DONE");
-      })};
+    // if (!products.length){
+    //   firstProduct.save (function (err){          
+    //      if (!err){}
+    //   console.log(" SAVE DEFAULT PRODUCTS COMPLETED");
+    //   })};
     } 
   )
-  return Product
-}
+  
 
-export default productModel
+export default Product

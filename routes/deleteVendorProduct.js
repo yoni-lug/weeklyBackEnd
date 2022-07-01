@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
-const Product = mongoose.model("Product")
-export default function (app){
+//const Product = mongoose.model("Product")
+export default function (app,Product){
     app.get ("/deleteVendorProduct", function(req,res){
         console.log ("request is" +req.query.id)
         Product.findOne ({_id:req.query.id}, function (err,selectedProduct){

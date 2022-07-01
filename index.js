@@ -8,24 +8,21 @@ import { fileURLToPath } from 'url';
 
 import {v2 as cloudinary} from 'cloudinary' 
 import mongoose from "mongoose";
-
-
 import cloudinaryConfig from "./services/cloudinary.js"
 import exampleroute from "./routes/exampleRoute.js" 
 import keys from "./config/keys.js"
-import Order from "./models/order.js"
-import Product from "./models/product.js"
+//import Order from "./models/order.js"
+
+import productModel from "./models/product.js"
 import findVendorProducts from "./routes/findVendorProducts.js"
 import deleteVendorProduct from './routes/deleteVendorProduct.js';
 import post_newproduct from './routes/post_newproduct.js';
 import post_orderThisWeek from './routes/post_orderThisWeek.js';
 
-
-
-const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-console.log (__dirname);
-
+//TODO PROBALABLY NOT NEEDED 
+// const localServerPath = "http://127.0.0.1:8887"; // THIS IS ONLY FOR DEVELOPMEMT 
+// const __dirname = dirname(fileURLToPath(import.meta.url));
+// console.log (__dirname);
 
 const app = express()
 const upload = multer ({dest:"uploads/"})
@@ -34,83 +31,40 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
+//ATLAS DATA BASE /DATA BASE - MONGOOSE FUNCTIONS
+mongoose.connect(
+  'mongodb+srv://'+keys.mongoDB.userName+':'+keys.mongoDB.passWord+'@cluster0weekly.8xvzm.mongodb.net/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true});
+  // mongoose.connect('mongodb://localhost:27017/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true}); //LOCAL DATA BASE ON PORT 27017
+const db = mongoose.connection;
+ db.on('error', console.error.bind(console, 'connection error:'));
+ db.once('open', function() {
+  // we're connected!
+  console.log ( "data base is connected")
+});
 
+//TODO WHAT IS THE BEST PRACTICES TO SYNC THE DATA BASE TO ACTIVATE BEFORE USING IT 
 const PORT = process.env.PORT || 5000  // Dynamic port  from server or locally developement enivornment
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
-//TODO -  ADDED TO CHECK IF THE GET RESPONSE WORK
-app.get ("/tryOne", function(req,res){
-  console.log ("yehonatan One")
-  res.send("Yehonatan One")
-})
-//TODO END
+// MONGO DB MODELS IMPORTED
+const Product = productModel() // Product model is imported with intial values
 
-
-
-//TODO -  ADDED TO CHECK IF THE GET RESPONSE WORK
-app.get ("/tryTwo", function(req,res){
-  console.log ("yehonatan Two")
-  res.send ("Yehonatan-Two")
-})
-//TODO END
-
-
-
-
-// ATLAS DATA BASE /DATA BASE - MONGOOSE FUNCTIONS
-mongoose.connect(
-  'mongodb+srv://'+keys.mongoDB.userName+':'+keys.mongoDB.passWord+'@cluster0weekly.8xvzm.mongodb.net/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true});
-  // mongoose.connect('mongodb://localhost:27017/WeeklyDB', {useNewUrlParser: true, useUnifiedTopology: true}); //LOCAL DATA BASE ON PORT 27017
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-  console.log ( "data base is connected")
-});
-
-// Product model is imported from "./server/models"
 
 // GET Routes
-
-
 exampleroute(app) // this function activate GET requet in exapmpe route
-findVendorProducts (app) // this function activate Get request from /findVendorProducts
-deleteVendorProduct (app)
+findVendorProducts (app,Product) // this function activate Get request from /findVendorProducts
+deleteVendorProduct (app,Product)
 
 
 //POST Routes
-
-post_newproduct(app) // this function activate Post request from /post_newproduct (llok at routes folder)
-post_orderThisWeek (app)
-
-//
-
-//EXPRESS POST AND GET FUNCTIONS
-
-// TODO START GET PROCESS FOR PRODUCTS - DONT SURE IT WORK
-//TODO
-// app.get('/products', (req, res) => {
-//   //Product.findOne({ _id: "60284e1d6854d208ed3ee7a8" }, function (err, product) {
-//   Product.findOne({ }, function (err, product) {
-//       console.log(product)
-//       res.send(product)
-//     console.log("Get request is passing")
-//   });
-// })
-//TODO END
-// END GET PROCESS FOR PRODUCT 
+post_newproduct(app,Product) // this function activate Post request from /post_newproduct (llok at routes folder)
+post_orderThisWeek (app,Product)
 
 
 // COLUDINARY CONFIG
-
-
-
-
-
 //upload image
-
 app.post("/productImage",upload.single("file"),function (req,res){
   console.log ( "REQUEST --------------------------------------------")
   //console.log (req.body)
@@ -166,8 +120,6 @@ app.post("/productImage",upload.single("file"),function (req,res){
 
 })
 
-
-
 // app.get ("/productImage", function (req,res){
 //   console.log ("path")
 //   console.log (req.query)
@@ -200,8 +152,6 @@ app.post("/productImage",upload.single("file"),function (req,res){
 
 
 // })
-
-
 
 //HEROKU DEPLYMNET PREPEATION
 if (process.env.NODE_ENV === "production") {

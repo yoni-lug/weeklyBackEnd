@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
-const Product = mongoose.model("Product")
-export default function (app) {
+//const Product = mongoose.model("Product")
+export default function (app,Product) {
     app.get ("/findVendorProducts", function (req,res){
         Product.find ({}, function(err,products){
             if (err){
