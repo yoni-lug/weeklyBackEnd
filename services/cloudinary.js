@@ -4,7 +4,7 @@ import keys from '../config/keys.js';
 
 // SETTING CLOUDINARY 
 
-   let n=  cloudinary.config({ 
+   let cloudinaryConfig=  cloudinary.config({ 
         cloud_name: keys.cloudinaryConfig.cloud_name, 
         api_key: keys.cloudinaryConfig.api_key, 
         api_secret: keys.cloudinaryConfig.api_secret,
@@ -13,6 +13,6 @@ import keys from '../config/keys.js';
     
 
 
-export default n
+export default cloudinaryConfig
 
 

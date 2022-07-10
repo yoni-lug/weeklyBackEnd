@@ -1,4 +1,4 @@
-    import React from 'react';
+    import {React,useContext, useState} from 'react';
     import { makeStyles } from '@material-ui/core/styles';
     import Card from '@material-ui/core/Card';
     
@@ -11,6 +11,14 @@
     import Grid from '@material-ui/core/Grid';
     import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
     import IconButton from '@material-ui/core/IconButton';
+    import {OrderContext} from "../../contexts/OrderContext.jsx"
+
+    import { Redirect } from 'react-router-dom';
+
+    //import { useLocation } from 'react-router-dom';
+
+    //import {removeOrder} from "./orderHandling/removeOrder.js"
+    
     
     const useStyles = makeStyles((theme) => ({
       root: {
@@ -40,30 +48,47 @@
     }));
     
     export default function ShoppingCart(props) {
-     const orders=props.shoppingCart
+      const classes = useStyles();
+    // const location = useLocation();
+     //const orders=location.state.orders
+     //const orders=props.shoppingCart
+     const {orders,setOrders} = useContext(OrderContext)
+     const [isRedirectShopping, setIsRedirectShopping]= useState (false)
+     const [IsRedirectPurchasing,SetIsRedirectPurchasing] =useState (false)
   
    
       console.log("this is the shopping Cart")
-      console.log(props.shoppingCart)
-      const classes = useStyles();
+      console.log(orders)
+    
+
+       //HANDLE REMOVING ORDER FROM THE SHOPPING CART - FROM "ShoppingCart"
+       function handleRemoveClick (id,event){
+         console.log ("order is removed")
       
-      function handelRemoveClick (id,event){
-        
-        return (
-          props.removeOrder(id)
-        )
-      }
+         let postRemoveOrders= orders.filter (function (order){
+           return (id !== order._id)
+         })
+         //console.log(postRemoveOrders)
+           setOrders (postRemoveOrders)
+       } 
+      
 
       function handleContinueShopping (){
         // console.log("contineShopping")
-        return props.continueShopping.whatToShow();
+        setIsRedirectShopping (true)
+        return null
+
+        }
+        function handleContinueToPurchasing(){
+          SetIsRedirectPurchasing (true)
+          console.log ("continueToPurchasing")
         }
       
         return (
         <div className={classes.root}>
          {/* BUTTOMS PART */}
          <div className={classes.buttomDiv }>
-         <Button className={classes.buttom} variant="contained">
+         <Button onClick={handleContinueToPurchasing} className={classes.buttom} variant="contained">
            לסיום הזמנה
            </Button>
           <Button className={classes.buttom} variant="contained" 
@@ -79,8 +104,13 @@
         {orders.map (function (order,index){
         console.log("index is: "+index)
          return(
+        
+        
         <div className={classes.root} key={index}>
         
+        {isRedirectShopping && <Redirect to="/"></Redirect>}
+        {IsRedirectPurchasing && <Redirect to="./PurchasingPage"></Redirect>}
+
         {/* <CardActionArea > */}
         <Grid container>
          <Grid item xs={3}>
@@ -96,7 +126,7 @@
             <IconButton
              onClick ={function(event){
                return (
-                 handelRemoveClick(order._id,event)
+                 handleRemoveClick(order._id,event)
                )
                  }
              }
@@ -154,7 +184,7 @@
         </Grid>
         
           </Grid>
-         {/* </CardActionArea> */}
+      
         </div>
          )
         })}

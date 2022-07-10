@@ -1,0 +1,105 @@
+import {React,useContext} from 'react';
+
+import Card from '@material-ui/core/Card'; 
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+
+//import { OrderContext } from '../../contexts/OrderContext.jsx';
+import { OrderContext } from '../../contexts/OrderContext.jsx';
+
+
+// פרטים של הקונה
+// פרטים של הקנייה
+// תזכורת לגבי המשלוח
+function PurchasingPage () {
+
+    //const {orders,setOrders} = useContext (OrderContext)
+    const {orders} = useContext (OrderContext)
+
+    //FILL THE CUSTOMER DETAILS
+    function handleSubmit (){
+        console.log ("submit")
+        return null
+    }
+    
+
+    return (
+        <div>
+            {/* THE CUSTOMER DETAILS */}
+            <div> 
+                <h1>this is purashing page</h1>
+                <form onSubmit={handleSubmit}>
+                    <input placeholder = "בחר מקום המשלוח"/>
+                    <br/>
+                    <h4> החבילה תגיע ביום שני בין12:00 ל15:00</h4>
+                    <br/>
+                    <input placeholder = "שם מלא" type="text" id="name" name="name"/> 
+                    <br/>
+                    <input placeholder = "נייד"/>
+                    <br/>
+                
+                    <input type="submit" value="Submit"></input>
+                </form>
+            </div>
+        
+        
+            <Card >
+            {orders.map (function (order,index){
+           
+            return(
+            
+            
+                <div>
+
+                    <Grid container>
+                        <Grid item xs={3}>
+                        
+                            <CardMedia
+                          
+                            image="https://applemagazine.com/wp-content/uploads/2021/09/146898-phones-feature-the-best-apple-iphone-photos-ever-taken-image1-ydter7skel.jpg"
+                            title="Contemplative Reptile"
+                            />
+                        </Grid>
+                        <Grid item xs={9}>
+                            <CardContent > 
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    {order.productHeader}
+                                </Typography>
+                            
+                                {/* <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
+                                    {order.productDescription}
+                                </Typography> */}
+
+                                <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
+                                    {order.units} 
+                                </Typography>
+                            </CardContent>
+                                
+                            <CardActions style={ { padding:"0px 16px 0px 16px" }} >
+                                <Typography variant="body2" color="primary" component="p" style={{fontWeight:"bold"}}>
+                                    כמות: {order.quantity} 
+                                </Typography>
+                            
+                                <Typography variant="body2" color="primary" component="p" style={{fontWeight:"bold" , marginRight:"auto"}}>
+                                {parseFloat(order.price)*(order.quantity)}
+                                {' \u20AA'} {'כולל מע"מ'}
+                                </Typography>
+                            </CardActions>
+                        </Grid>
+                    
+                    </Grid>
+            
+                </div>
+            )
+            })}
+            </Card>
+        
+         </div>
+    
+    )
+}     
+                
+export default PurchasingPage

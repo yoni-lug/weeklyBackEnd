@@ -3,6 +3,8 @@
 // in the use effect change the SetOrder and activate the IsSbmit to show the corret window
 
 import React from 'react';
+import { useEffect, useState } from 'react';
+//import {useHistory} from 'react-router-dom'
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -16,6 +18,8 @@ import Container from '@material-ui/core/Container';
 
 
 import TextField from '@material-ui/core/TextField';
+import { Redirect } from 'react-router-dom';
+
 
 
 
@@ -61,14 +65,68 @@ function ProductsGridUi(props){
      
       const classes = useStyles();
       const quantities = ["-","1" ,"2","3","4","5","6","7","8","9","10"]
-      
+
+    
+
       //DECLARE ALL PROPS PROPERTIES
       const products=props.productsList
-      const  handleSubmit = props.handleSubmit
+      const orders = props.orders
+      const setOrders =props.setOrders
+      //const  handleSubmit = props.handleSubmit
       const handleQntChange = props.handleQntChange
+      const [isSubmitted, setIsSumbitted] = useState (false)
+
+      
+
+     
+
+      //HANDLE SUBMIT PRODUCT TO THE SHOPPING CART - FROM "ProductGridUi"
+      function handleSubmit (event){
+       
+        event.preventDefault();  
+        const id = event.target.id; //  THR ID OF THE NEW SUBMIT PRODUCT
+
+        let isOrderExist =orders.some(function(order){
+          return (order._id===id)
+        })
+        
+        const orderArray=products.filter( function (product){
+            return (id===product._id)
+          })
+          const newOrder={...orderArray[0]}; //  MANAGING REFERNCE VALUE - CLONE
+
+          //HANDLE NEW ORDER - Product not exist in the previous orders
+          if (!isOrderExist) {
+            //console.log ("the process is done")
+            setOrders (function(prevOrders){
+              
+              return(
+              [...prevOrders,newOrder]
+            )   
+            })
+            
+
+          }
+
+          //HANDLE exist ORDER - Product Exist
+        if (isOrderExist) {
+          let index=orders.findIndex (function (order){
+           return (id===order._id)
+          })
+         
+          const preQuantity = parseFloat (orders[index].quantity)
+          const newQunatity = parseFloat (newOrder.quantity)
+          let totalQnt = preQuantity + newQunatity
+          orders[index].quantity = totalQnt
+          setOrders ([...orders])
+        }
+        setIsSumbitted (true)
+        
+    }
       
       return (
         <div>
+            {isSubmitted && <Redirect to="./shoppingCart"> </Redirect>}
             
             <Container className={classes.cardGrid} maxWidth="lg">
               {/* End hero unit */}

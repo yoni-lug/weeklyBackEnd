@@ -164,7 +164,6 @@ const [rows, setRows] = useState ([]);
         className={classes.button}
         startIcon={<DeleteIcon />}
       >  Delete </Button> */}
-     
     
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -193,6 +192,15 @@ const [rows, setRows] = useState ([]);
                   <TableCell align="right">{row.units}</TableCell>
                   <TableCell align="right">{row.price}</TableCell>
                   <TableCell align="right">{row.vendor}</TableCell>
+                  <TableCell align="right"><img 
+                    src={row.ImageCloudineryURL}
+                    alt="Italian Trulli"
+                    style = {{width: "50px" , height:"50px"}}
+                    >
+                   
+
+                  </img></TableCell>
+                  
                   <TableCell align="right">{editIcon(row._id)}</TableCell>
                   <TableCell align="right">{deleteIcon(row._id)}</TableCell>
                 </TableRow>

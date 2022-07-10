@@ -1,35 +1,47 @@
-import React from "react";
-import {useLocation} from "react-router-dom"
+import {React,useState,useContext, useEffect} from "react";
+// import { useState } from "react";
+import {useHistory} from "react-router-dom"
 import CustomerPagesManager  from "./CustomerPagesManger";
+import {UserContext} from "../../contexts/UserContext.jsx"
 
-// import {productsList} from "./productListArray"; 
+
 
 
 function Test(props){
+    
+   
+    const history =useHistory();
+    const {name,setName} = useContext (UserContext)
+   
 
+    useEffect (function (){
+        console.log (name)
+    },)
+
+    
+   
+
+    //const [name,setName] =useState("john");
+    //const value={name,setName};
+
+    //console.log (UserContext)
+    
+
+    function handleClick(){
+        
+        console.log("clicked")
+        
+        setName (name+1)
+        history.push ({pathname:"/test1"})
+    }
     console.log ("what is productListArray")
-    // console.log (productListArray)
-    // console.log (productListArray[0])
-    // const {pathname,state} = useLocation();
-    const location =useLocation()
-    console.log (location)
-    // const Pname=location.state.name
-    console.log(location.fun)
-    const test=location.fun;
-    // test()
-
-    // const test=location.state.test
-    // test();
-
-
-    // console.log (location.state)
-    // console.log (pathname)
+    
     return(
     <div>  
      <CustomerPagesManager/>
    
     
-     <h1 onClick={test} >Yoni</h1>
+     <h1 onClick={handleClick} >CustomerPageMnager</h1>
     </div>  
     )
 }

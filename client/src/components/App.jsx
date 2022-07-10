@@ -10,6 +10,13 @@ import VendorInputHeader from "./vendorPage/VendorInputHeader"
 import InsertProduct from "./vendorPage/InsertProduct";
 import ShoppingCart from "./customerPage/ShoppingCart";
 import Test from "./customerPage/Test";
+import PurchasingPage from "./customerPage/PurchaingPage";
+import PurchasedItemsList from "./vendorPage/purchasedItemsList.jsx";
+
+import Test1 from "./customerPage/Test1"
+import { UserProvider } from "../contexts/UserContext.jsx";
+
+import {OrderProvider} from "../contexts/OrderContext.jsx";
 
 
 
@@ -33,32 +40,50 @@ function App() {
     <ThemeProvider theme={theme}>
     <Router>
     <div>
-    <Switch>
-    <Route exact path="/"> 
-        <HeaderUi /> 
-        <GridUi/>
-        <Footer /> 
-      </Route>  
-      <Route exact path="/vendor">
-        <VendorInputHeader />
-        <InsertProduct/> 
-      </Route> 
-      <Route exact path="/signin">
-          <SignIn />
-      </Route>
-      <Route exact path="/signup">
-          <SignUp />
-      </Route>
-      <Route exact path="/vendorProductList">
-          <VendorProductList />
-      </Route>
-      <Route exact path="/shoppingCart" >
-          <Test/>
-      </Route>
-
-     
-    </Switch>
+      <UserProvider> 
       
+       <OrderProvider>
+
+            <Switch>
+              <Route exact path="/"> 
+                  <HeaderUi /> 
+                  <GridUi/>
+                  <Footer /> 
+                </Route>  
+                <Route exact path="/vendor">
+                  <VendorInputHeader />
+                  <InsertProduct/> 
+                </Route> 
+                <Route exact path="/signin">
+                    <SignIn />
+                </Route>
+                <Route exact path="/signup">
+                    <SignUp />
+                </Route>
+                <Route exact path="/vendorProductList">
+                    <VendorProductList />
+                </Route>
+                <Route exact path="/shoppingCart" >
+                    <ShoppingCart/>
+                </Route>
+                <Route exact path="/purchasingPage" >
+                    <PurchasingPage/>
+                </Route>
+                <Route exact path="/purchasedItemsList" >
+                    <PurchasedItemsList/>
+                </Route>
+                {/* <Route exact path="/test1" >
+                    <Test1/>
+                </Route>
+                <Route exact path="/test" >
+                    <Test/>
+                </Route> */}
+            
+            </Switch>
+
+          </OrderProvider>
+         
+      </UserProvider>
     </div>
     </Router>
     </ThemeProvider>

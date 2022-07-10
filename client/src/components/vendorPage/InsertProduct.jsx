@@ -6,15 +6,12 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
-
 import CheckBoxZones from './CheckBoxZones';
 import UploadImage from "./UploadImage"
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
 import { v4 as uuidv4 } from 'uuid';
-
+import defaultImage from "./defaultImage/default_transparent_image.jpg"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,51 +23,38 @@ const useStyles = makeStyles((theme) => ({
   //   // padding: theme.spacing(2),
   //   // textAlign: 'center',
   //   // color: theme.palette.text.secondary,
-  // },
-    
+  // },    
 }}));
 
 export default function InsertProduct() {
   const classes = useStyles();
-
-  
   const history = useHistory();
   const routeChange = () =>{ 
     let path = `/vendorProductList`; 
     history.push(path);
-  }
-  
-  // const newProductObject = {
-  //   productHeader:"",
-  //   productDescription:"",
-  //   productCost:"",
-  //   productPackage:"",
-  //   deliveryArea:"",
-  //   productID:""
-// }
-  
-    
+  }      
     const [newProduct, setNewProduct]= useState ({
-    productHeader:"",
-    productDescription:"",
-    productCost:"",
-    productPackage:"",
-    deliveryArea:"",
-    productID:""
+      productID:"",
+      productHeader:"",
+      productDescription:"",
+      vendor:"",
+      productCost:"",
+      productPackage:"",
+      deliveryArea:""
     })
 
-
-  const [image,setImage] =useState ({
+  // TO PREVIEW THE IMAGE
+    const [image,setImage] =useState ({
     state: false,
     preview: "", 
     raw: ""
   });
 
+  
   // TO UPLOAD THE IMAGE
   const [imageLoad, setImageLoad] =useState ({
     name: "",
-    file: "",
-    path:{}
+    file: null
   })
 
   function imagePreview (imageData){
@@ -93,116 +77,72 @@ export default function InsertProduct() {
     })
   }
   function placesToDeliver(delivery){
-    console.log ("the function is working")
-    console.log (delivery)
+    //console.log ("the function is working")
+    //console.log (delivery)
     let name="deliveryArea"
     setNewProduct ({
       ...newProduct,
       [name]:delivery
     })
   }
-
-  function handleSubmit (event){
-    event.preventDefault()
-    
-    //CREATE PRODUCT_ID
-    
-    const productID = uuidv4(); // CREATE UNIQE IDENTFIER
-    console.log("product ID = " +productID);
-    //ADD PRODUCT ID TO THE NEW PRODUCT
-    newProduct.productID = productID
-    console.log ("NEW PRODUCT WITH PRODUCT ID")
-    console.log (newProduct)
-    
-    
-    //fUNCTIO TO SEND THR TEXT DATA TO THE SERVER
-    async function sendTextData (){
-      try {
-        const response = await axios.post('/newProduct', newProduct);
-        // handle success
-        console.log(response.data);
-        routeChange(); // USING THE USE HISTORY TO ROUTE CHANGE
-      } catch (error) {
-        // handle error
-        console.log(error);
-      }
-    } 
-
-    
-    //FUNCTION TO SEND THE IMAGE FILE TO THE SERVER
-     console.log ("imageLoad.name = " +imageLoad.name)
-     console.log (imageLoad.file)
-    const formData = new FormData();
-    formData.append (imageLoad.name , imageLoad.file, productID )
-   
-   
-    //SEND TEXTDATA TO SERVER AND THEN SEND THE IMAGE DATA TO SEVER SYNC
-    
-    sendTextData() //SEND THE DATA TO DATA BASE
-    .then((response)=>{   //sync sending the data and sending the image
-      console.log("response")
-      return (
-      // SEND THE IMAGE TO DATA BASE
-        axios.post('/productImage',formData)
-          .then(function (response) {
-          // handle success
-          console.log("respone data")
-          console.log(response.data);
-          })
-        )
-      
-    })
-    //sendTextData().then (sendImageToServer())
-    //console.log (event.target)
-    
-    console.log ("!!!!!ATFTER THE IMAGE ")
-   
-      
-    routeChange(); // USING THE USE HISTORY TO ROUTE CHANGE
-   }
-//-----------------------------------------------------------------
-
+ 
   function handleInputChange (event) {
   
-    const name=event.target.name
-    console.log (name)
-    const imageFile = event.target.files[0]
-    console.log (imageFile)
+    const imageFile = event.target.files[0];
+    const imageName = event.target.files[0].name;
+    //const imageType= event.target.files[0].type;
+    
     setImageLoad ({
-      name: name,
+      name: imageName,
       file: imageFile,
-      path:{}
     })   
   }
 
-    // TODO 1
-  function handleImageSubmit (event){
-    event.preventDefault()    
-    console.log (event.target)
-    console.log (imageLoad.name)
-    console.log (imageLoad.file)
-
-    const formData = new FormData();
-    formData.append (imageLoad.name , imageLoad.file)
+    // TODO 1 / MANAGE THE SMAL SENT BUTTON ""Handel image submit!"
+  function handleSubmit (event){
+    event.preventDefault()
+   //ADD THE productID uninqe
+    const productID = uuidv4(); // CREATE UNIQE IDENTFIER
+   
+    //ADD PRODUCT ID TO THE NEW PRODUCT
+    newProduct.productID = productID
     
-    axios.post('/productImage',formData)
+    //CREATE FORMDATA TO FETCH
+    const formData = new FormData();
+    if (imageLoad.file) { //  PREVENT FAILURE IF IMAGE NOT EXIST
+       formData.append ("file",imageLoad.file, imageLoad.name)
+    }
+  
+    // ADD THE TEXT DATA TO THE FORMDATA  
+    for (var key of Object.keys(newProduct)) {
+      console.log(key + " -> " + newProduct[key])
+      formData.append(key,newProduct[key])
+   }
+    
+    axios.post('/productImage',formData, {
+      headers:{
+        "Content-Type": "multipart/form-data",
+        'Authorization': productID  // THE PRODUCT ID IS ADDED TO THE FILE
+      }
+    })
       .then(function (response) {
       // handle success
       console.log("respone data")
       console.log(response.data);
-      const serverPath = response.data;
-      console.log (serverPath.fullPathLocationLocalServer+".jpg")
+      // setImageLoad (function (preValue){
+      //   return({
+      //     name: preValue.name,
+      //     file: preValue.file
+      //  //   path: serverPath
+      //   })
+      // })
+      
+      routeChange(); // USING THE USE HISTORY TO ROUTE CHANGE
       
 //TODO2 END
 
 //TODO 3 
-  setImageLoad (function (preValue){
-        return({
-          name: preValue.name,
-          file: preValue.file,
-          path: serverPath
-        })
-      })
+  
 
      
       })
@@ -265,14 +205,15 @@ export default function InsertProduct() {
                 type="submit"
                  size= "large" 
                  variant="contained" 
-                 color="primary"> אישור
+                 color="primary"
+                 > אישור
               </Button>
             </form>
             
             
             <form 
                // action="/productImage" enctype="multipart/form-data" method="post"
-                onSubmit={handleImageSubmit}
+                onSubmit={handleSubmit}
                 >
                   <div >
                     <input type="file" accept= "image/*" name="file" onChange ={handleInputChange} />
