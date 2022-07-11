@@ -10,14 +10,14 @@ import ShoppingCart from './ShoppingCart';
 import { productsList } from './productListArray';
 import ProductsGridUi from './ProductsGridUi';
 
-import { OrderContext } from '../../contexts/OrderContext.jsx';
+import { basketListContext } from '../../contexts/OrderListContext.jsx';
 
-import {removeOrder} from "./orderHandling/removeOrder.js"
+import {removeBasketList} from "./orderHandling/removeOrder.js"
 
 
 function GridUi(){
 
-      const {orders,setOrders} = useContext (OrderContext)
+      const {basketList, setBasketList} = useContext (basketListContext)
       const products= productsList // default product list for development
       const [ isMount, setIsMount] = useState(false)
       //const [orders,setOrders] = useState ([]);
@@ -46,7 +46,7 @@ function GridUi(){
         }      
         console.log ("GRID UI WHAT TO SHOW")
       }
-      , [orders])
+      , [basketList])
 
       // to show the grid layout of the products or the shopping cart
       function whatToShow(){
@@ -104,13 +104,13 @@ function GridUi(){
             productsList = {products}
             //handleSubmit = {handleSubmit}
             handleQntChange = {handleQntChange}
-            orders = {orders}
-            setOrders = {setOrders}
+            basketList = {basketList}
+            setBasketList = {setBasketList}
              />}
         <div >
          {false && <ShoppingCart 
-            shoppingCart={orders}
-            removeOrder={removeOrder} 
+            shoppingCart={basketList}
+            removeBasketList={removeBasketList} 
             continueShopping={{whatToShow}} />}
         </div> 
       

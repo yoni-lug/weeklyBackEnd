@@ -4,13 +4,13 @@
   "type": "module",
   "description": "",
   "main": "index.js",
-  "engines": { 
-    "node":"16.15.1", 
+  "engines": {
+    "node": "16.15.1",
     "npm": "8.12.1"
   },
   "scripts": {
     "prestart": "node scripts/mongoDBcheck.js",
-    "start":"node index.js",
+    "start": "node index.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",

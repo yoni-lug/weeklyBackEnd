@@ -70,8 +70,8 @@ function ProductsGridUi(props){
 
       //DECLARE ALL PROPS PROPERTIES
       const products=props.productsList
-      const orders = props.orders
-      const setOrders =props.setOrders
+      const basketList = props.basketList
+      const setBasketList =props.setBasketList
       //const  handleSubmit = props.handleSubmit
       const handleQntChange = props.handleQntChange
       const [isSubmitted, setIsSumbitted] = useState (false)
@@ -86,22 +86,22 @@ function ProductsGridUi(props){
         event.preventDefault();  
         const id = event.target.id; //  THR ID OF THE NEW SUBMIT PRODUCT
 
-        let isOrderExist =orders.some(function(order){
-          return (order._id===id)
+        let isBasketListExist =basketList.some(function(basketItem){
+          return (basketItem._id===id)
         })
         
         const orderArray=products.filter( function (product){
             return (id===product._id)
           })
-          const newOrder={...orderArray[0]}; //  MANAGING REFERNCE VALUE - CLONE
+          const newBasketList={...orderArray[0]}; //  MANAGING REFERNCE VALUE - CLONE
 
           //HANDLE NEW ORDER - Product not exist in the previous orders
-          if (!isOrderExist) {
+          if (!isBasketListExist) {
             //console.log ("the process is done")
-            setOrders (function(prevOrders){
+            setBasketList (function(prevBasketList){
               
               return(
-              [...prevOrders,newOrder]
+              [...prevBasketList,newBasketList]
             )   
             })
             
@@ -109,18 +109,19 @@ function ProductsGridUi(props){
           }
 
           //HANDLE exist ORDER - Product Exist
-        if (isOrderExist) {
-          let index=orders.findIndex (function (order){
-           return (id===order._id)
+        if (isBasketListExist) {
+          let index=basketList.findIndex (function (basketItem){
+           return (id===basketItem._id)
           })
          
-          const preQuantity = parseFloat (orders[index].quantity)
-          const newQunatity = parseFloat (newOrder.quantity)
+          const preQuantity = parseFloat (basketList[index].quantity)
+          const newQunatity = parseFloat (newBasketList.quantity)
           let totalQnt = preQuantity + newQunatity
-          orders[index].quantity = totalQnt
-          setOrders ([...orders])
+          basketList[index].quantity = totalQnt
+          setBasketList ([...basketList])
         }
         setIsSumbitted (true)
+        
         
     }
       

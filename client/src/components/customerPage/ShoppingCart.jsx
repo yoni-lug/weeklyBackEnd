@@ -11,7 +11,7 @@
     import Grid from '@material-ui/core/Grid';
     import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
     import IconButton from '@material-ui/core/IconButton';
-    import {OrderContext} from "../../contexts/OrderContext.jsx"
+    import {basketListContext} from "../../contexts/OrderListContext.jsx"
 
     import { Redirect } from 'react-router-dom';
 
@@ -52,24 +52,26 @@
     // const location = useLocation();
      //const orders=location.state.orders
      //const orders=props.shoppingCart
-     const {orders,setOrders} = useContext(OrderContext)
+     const {basketList,setBasketList} = useContext(basketListContext)
+     console.log (basketList)
+     console.log (setBasketList)
      const [isRedirectShopping, setIsRedirectShopping]= useState (false)
      const [IsRedirectPurchasing,SetIsRedirectPurchasing] =useState (false)
   
    
       console.log("this is the shopping Cart")
-      console.log(orders)
+      console.log(basketList)
     
 
        //HANDLE REMOVING ORDER FROM THE SHOPPING CART - FROM "ShoppingCart"
        function handleRemoveClick (id,event){
          console.log ("order is removed")
       
-         let postRemoveOrders= orders.filter (function (order){
-           return (id !== order._id)
+         let postRemoveItems= basketList.filter (function (basketItem){
+           return (id !== basketItem._id)
          })
          //console.log(postRemoveOrders)
-           setOrders (postRemoveOrders)
+           setBasketList (postRemoveItems)
        } 
       
 
@@ -86,7 +88,11 @@
       
         return (
         <div className={classes.root}>
-         {/* BUTTOMS PART */}
+
+        {isRedirectShopping && <Redirect to="/"></Redirect>}
+        {IsRedirectPurchasing && <Redirect to="./PurchasingPage"></Redirect>}
+        
+        {/* BUTTOMS PART */}
          <div className={classes.buttomDiv }>
          <Button onClick={handleContinueToPurchasing} className={classes.buttom} variant="contained">
            לסיום הזמנה
@@ -101,15 +107,14 @@
 
                 
         <Card >
-        {orders.map (function (order,index){
+        {basketList.map (function (basketItem,index){
         console.log("index is: "+index)
          return(
         
         
         <div className={classes.root} key={index}>
         
-        {isRedirectShopping && <Redirect to="/"></Redirect>}
-        {IsRedirectPurchasing && <Redirect to="./PurchasingPage"></Redirect>}
+      
 
         {/* <CardActionArea > */}
         <Grid container>
@@ -126,7 +131,7 @@
             <IconButton
              onClick ={function(event){
                return (
-                 handleRemoveClick(order._id,event)
+                 handleRemoveClick(basketItem._id,event)
                )
                  }
              }
@@ -141,19 +146,19 @@
             </IconButton>
             
               <Typography gutterBottom variant="h5" component="h2">
-                {order.productHeader}
+                {basketItem.productHeader}
               </Typography>
              
               
 
               <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
               
-                {order.productDescription}
+                {basketItem.productDescription}
               
               </Typography>
 
               <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
-                 {order.units} 
+                 {basketItem.units} 
               </Typography>
               
 
@@ -168,13 +173,13 @@
             style={{fontWeight:"bold"}}
             // {{borderStyle:"solid", borderWidth:"1px"}}
             >
-                כמות: {order.quantity} 
+                כמות: {basketItem.quantity} 
               </Typography>
               
               <Typography variant="body2" color="primary" component="p"
                style={{fontWeight:"bold" , marginRight:"auto"}}>
                
-                 {parseFloat(order.price)*(order.quantity)}
+                 {parseFloat(basketItem.price)*(basketItem.quantity)}
                 {' \u20AA'} {'כולל מע"מ'}
               </Typography>
               

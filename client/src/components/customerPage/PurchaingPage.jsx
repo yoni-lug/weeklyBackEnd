@@ -1,4 +1,5 @@
 import {React,useContext} from 'react';
+import orderIDfun from 'order-id'
 
 import Card from '@material-ui/core/Card'; 
 import CardActions from '@material-ui/core/CardActions';
@@ -8,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 //import { OrderContext } from '../../contexts/OrderContext.jsx';
-import { OrderContext } from '../../contexts/OrderContext.jsx';
+import { basketListContext } from '../../contexts/OrderListContext.jsx';
 
 
 // פרטים של הקונה
@@ -16,13 +17,21 @@ import { OrderContext } from '../../contexts/OrderContext.jsx';
 // תזכורת לגבי המשלוח
 function PurchasingPage () {
 
-    //const {orders,setOrders} = useContext (OrderContext)
-    const {orders} = useContext (OrderContext)
+    //GENERATE ORDER ID usning order=ID NPM package
+    const orderID = orderIDfun('key')
+    const id = orderID.generate()
+    console.log (id)
+    
+
+    //const {basketList,setBasketList} = useContext (OrderContext)
+    const {basketList} = useContext (basketListContext)
 
     //FILL THE CUSTOMER DETAILS
     function handleSubmit (){
         console.log ("submit")
-        return null
+        return (
+            <p> xxx הזמנה מספר </p>
+        )
     }
     
 
@@ -47,7 +56,7 @@ function PurchasingPage () {
         
         
             <Card >
-            {orders.map (function (order,index){
+            {basketList.map (function (basketList,index){
            
             return(
             
@@ -66,7 +75,7 @@ function PurchasingPage () {
                         <Grid item xs={9}>
                             <CardContent > 
                                 <Typography gutterBottom variant="h5" component="h2">
-                                    {order.productHeader}
+                                    {basketList.productHeader}
                                 </Typography>
                             
                                 {/* <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
@@ -74,17 +83,17 @@ function PurchasingPage () {
                                 </Typography> */}
 
                                 <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
-                                    {order.units} 
+                                    {basketList.units} 
                                 </Typography>
                             </CardContent>
                                 
                             <CardActions style={ { padding:"0px 16px 0px 16px" }} >
                                 <Typography variant="body2" color="primary" component="p" style={{fontWeight:"bold"}}>
-                                    כמות: {order.quantity} 
+                                    כמות: {basketList.quantity} 
                                 </Typography>
                             
                                 <Typography variant="body2" color="primary" component="p" style={{fontWeight:"bold" , marginRight:"auto"}}>
-                                {parseFloat(order.price)*(order.quantity)}
+                                {parseFloat(basketList.price)*(basketList.quantity)}
                                 {' \u20AA'} {'כולל מע"מ'}
                                 </Typography>
                             </CardActions>

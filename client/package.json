@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.6.3",
     "axios": "^0.21.1",
     "jss-rtl": "^0.3.0",
+    "order-id": "^2.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",

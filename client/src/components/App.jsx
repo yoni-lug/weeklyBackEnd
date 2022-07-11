@@ -16,7 +16,7 @@ import PurchasedItemsList from "./vendorPage/purchasedItemsList.jsx";
 import Test1 from "./customerPage/Test1"
 import { UserProvider } from "../contexts/UserContext.jsx";
 
-import {OrderProvider} from "../contexts/OrderContext.jsx";
+import {BasketListProvider} from "../contexts/OrderListContext.jsx";
 
 
 
@@ -42,7 +42,7 @@ function App() {
     <div>
       <UserProvider> 
       
-       <OrderProvider>
+       <BasketListProvider>
 
             <Switch>
               <Route exact path="/"> 
@@ -81,7 +81,7 @@ function App() {
             
             </Switch>
 
-          </OrderProvider>
+          </BasketListProvider>
          
       </UserProvider>
     </div>
