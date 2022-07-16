@@ -12,6 +12,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import defaultImage from "./defaultImage/default_transparent_image.jpg"
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -152,7 +153,7 @@ export default function InsertProduct() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={8}>
-          <h2>הוספת מוצר</h2>
+          <Typography variant='h2'> הוספת מוצר</Typography>
           <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
             <TextField 
                 id="standard-basic" 

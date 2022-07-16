@@ -31,61 +31,62 @@ import VendorProductList from "./vendorPage/VendorProductList";
 let theme = createMuiTheme({
   typography: {
     fontFamily: "'Arimo', sans-serif",
-  }
-})
+  },
+  direction: 'ltr'
+})  
 theme = responsiveFontSizes(theme);
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-    <Router>
-    <div>
-      <UserProvider> 
-      
-       <BasketListProvider>
+      <Router>
+      <div>
+        {/* <UserProvider>  */}
+        
+        <BasketListProvider>
 
-            <Switch>
-              <Route exact path="/"> 
-                  <HeaderUi /> 
-                  <GridUi/>
-                  <Footer /> 
-                </Route>  
-                <Route exact path="/vendor">
-                  <VendorInputHeader />
-                  <InsertProduct/> 
-                </Route> 
-                <Route exact path="/signin">
-                    <SignIn />
-                </Route>
-                <Route exact path="/signup">
-                    <SignUp />
-                </Route>
-                <Route exact path="/vendorProductList">
-                    <VendorProductList />
-                </Route>
-                <Route exact path="/shoppingCart" >
-                    <ShoppingCart/>
-                </Route>
-                <Route exact path="/purchasingPage" >
-                    <PurchasingPage/>
-                </Route>
-                <Route exact path="/purchasedItemsList" >
-                    <PurchasedItemsList/>
-                </Route>
-                {/* <Route exact path="/test1" >
-                    <Test1/>
-                </Route>
-                <Route exact path="/test" >
-                    <Test/>
-                </Route> */}
-            
-            </Switch>
+              <Switch>
+                <Route exact path="/"> 
+                    <HeaderUi /> 
+                    <GridUi/>
+                    <Footer /> 
+                  </Route>  
+                  <Route exact path="/vendor">
+                    <VendorInputHeader />
+                    <InsertProduct/> 
+                  </Route> 
+                  <Route exact path="/signin">
+                      <SignIn />
+                  </Route>
+                  <Route exact path="/signup">
+                      <SignUp />
+                  </Route>
+                  <Route exact path="/vendorProductList">
+                      <VendorProductList />
+                  </Route>
+                  <Route exact path="/shoppingCart" >
+                      <ShoppingCart/>
+                  </Route>
+                  <Route exact path="/purchasingPage" >
+                      <PurchasingPage/>
+                  </Route>
+                  <Route exact path="/purchasedItemsList" >
+                      <PurchasedItemsList/>
+                  </Route>
+                  {/* <Route exact path="/test1" >
+                      <Test1/>
+                  </Route>
+                  <Route exact path="/test" >
+                      <Test/>
+                  </Route> */}
+              
+              </Switch>
 
-          </BasketListProvider>
-         
-      </UserProvider>
-    </div>
-    </Router>
+            </BasketListProvider>
+          
+        {/* </UserProvider> */}
+      </div>
+      </Router>
     </ThemeProvider>
   );
 }
