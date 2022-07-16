@@ -20,6 +20,8 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import { Redirect } from 'react-router-dom';
 
+import HeaderUi from "./HeaderUi.jsx"
+
 
 
 
@@ -130,6 +132,7 @@ function ProductsGridUi(props){
             {isSubmitted && <Redirect to="./shoppingCart"> </Redirect>}
             
             <Container className={classes.cardGrid} maxWidth="lg">
+            
               {/* End hero unit */}
               <Grid container spacing={5}>
                 {products.map((product,index) => (      

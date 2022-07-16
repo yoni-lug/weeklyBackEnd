@@ -17,6 +17,9 @@ import What from "./What.jsx"
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container';
 
+import Grid from '@material-ui/core/Grid';
+
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -133,7 +136,7 @@ export default function HeaderUi() {
 
 
   return (
-    <Container className={classes.cardGrid} maxWidth="lg">
+    // <Container className={classes.cardGrid} maxWidth="lg">
     <div className={classes.grow}>
       <AppBar position="static" 
         style={{backgroundColor: "#f5ba13",
@@ -176,31 +179,43 @@ export default function HeaderUi() {
             </IconButton>
           </div> 
         </Toolbar>
-        <Toolbar style={{
-            alignItems: 'center',
-            flexDirection: 'row',
-            flexWrap: 'nowrap',
-            justifyContent: 'space-around',
-            minHeight: "0px",
-            paddingTop:"0.5rem",
-            paddingBottom:"0.5rem"
-            }}
+        <Toolbar  
+         
+        //  style={{
+        //     alignItems: 'center',
+        //     flexDirection: 'row',
+        //     flexWrap: 'nowrap',
+        //     justifyContent: 'space-around',
+        //     minHeight: "0px",
+        //     paddingTop:"0.5rem",
+        //     paddingBottom:"0.5rem"
+        //     }}
             >
-          <Typography>
-           סחורה משובחת וטרייה מהחקלאים
-          </Typography> 
-          <Typography>
-          ניתן להזמין עד ליום רביעי שעה 20:00
-          </Typography>
-          <Typography>
-          הזמנות יסופקו ביום חמישי
-          </Typography>
-           {/* <What/>  */}
+            
+          <Grid 
+            container spacing={2}
+            direction= "row"
+            alignItems ="center"
+            
+            
+            > 
+              <Grid item xs={12}  md={4} style={{paddingBottom:"0px"}}> 
+                <Typography align= "center" variant='body1'>סחורה משובחת וטרייה מהחקלאים </Typography>
+              </Grid> 
+              <Grid item xs={12}  md={4} style={{paddingBottom:"0px", paddingTop:"0px"}}>
+                <Typography align= "center" variant='body1'>ניתן להזמין עד ליום רביעי שעה 20:00 </Typography>
+              </Grid> 
+              <Grid item xs={12}  md={4} style={{paddingTop:"0px"}}>
+                <Typography align= "center" variant='body1'>הזמנות יסופקו ביום חמישי</Typography>
+            {/* <What/>  */}
+              </Grid>
+          </Grid>
+           
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
     </div>
-    </Container>
+    // </Container>
   );
 }

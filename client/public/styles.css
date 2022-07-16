@@ -8,53 +8,54 @@
 } */
 
 
-.hello {
+/* .hello {
   /* text-align: center; */
-  margin-left: auto;
+  /* margin-left: auto;
   margin-right: auto;  
-}
+} */ 
 
-.what {
+/* .what {
   padding-top: 24px;
-}
-.what p {
+} */
+/* .what p {
   font-size: 2rem;
-}
+} */
 
-.what h1 {
+/* .what h1 {
   /* color: #fff; */
   /* font-family: "McLaren", cursive; */
-  font-weight: bold;
-  font-size: 3rem;
-}
+  /* font-weight: bold;
+  font-size: 3rem; */
+/* } */ 
 /* .font {
   font-family: "Arimo", sans-serif;
 } */
-body {
-  background: #eee;
-  padding: 0 16px;
+
+/* body { */
+  /* background: #eee; */
+  /* padding: 0 16px; */
   /* background-color: #b518bd; */
-  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-}
+  /* background-image: url("https://www.transparenttextures.com/patterns/cubes.png"); */
+/* } */
 
 
 
-header {
+/* header {
   background-color: #f5ba13;
   margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-}
+} */
 
-header h1 {
+/* header h1 {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
-}
+} */
 
 
 
-footer {
+/* footer {
   position: relative;
   text-align: center;
   bottom: 0;
@@ -64,4 +65,4 @@ footer {
 
 footer p {
   color: #ccc;
-}
+} */
