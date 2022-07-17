@@ -136,7 +136,7 @@ export default function HeaderUi() {
 
 
   return (
-    // <Container className={classes.cardGrid} maxWidth="lg">
+    <Container className={classes.cardGrid} maxWidth="lg">
     <div className={classes.grow}>
       <AppBar position="static" 
         style={{backgroundColor: "#f5ba13",
@@ -216,6 +216,6 @@ export default function HeaderUi() {
       {renderMobileMenu}
       {renderMenu}
     </div>
-    // </Container>
+    </Container>
   );
 }

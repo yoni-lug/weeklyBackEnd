@@ -7,15 +7,25 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/styles';
+
 
 //import { OrderContext } from '../../contexts/OrderContext.jsx';
 import { basketListContext } from '../../contexts/OrderListContext.jsx';
 
+const useStyle=makeStyles({
+    root:{
+        margin:"0.5rem,auto",
+        textAlign:"center"
+    }
+})
 
 // פרטים של הקונה
 // פרטים של הקנייה
 // תזכורת לגבי המשלוח
 function PurchasingPage () {
+    const classes= useStyle()
 
     //GENERATE ORDER ID usning order=ID NPM package
     const orderID = orderIDfun('key')
@@ -36,7 +46,9 @@ function PurchasingPage () {
     
 
     return (
-        <div>
+        
+        <Container className= {classes.root} component="div" maxWidth="md">
+        
             {/* THE CUSTOMER DETAILS */}
             <div> 
                 <h1>this is purashing page</h1>
@@ -106,7 +118,8 @@ function PurchasingPage () {
             })}
             </Card>
         
-         </div>
+        
+         </Container>
     
     )
 }     

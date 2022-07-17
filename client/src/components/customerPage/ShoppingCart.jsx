@@ -27,10 +27,20 @@
        
       },
       media: {
-        height: 100,
-        // width:"30%",
+        // maxHeight: "auto",
+       // maxWidth: "80%",
+       maxWidth: "90%",
+        height: "100%",
+        //maxHeight:"90%",
         // display:"inline-block",
-        margin:"16px"
+        position: 'relative',
+        marginTop: "auto",
+        marginBottom: "auto",
+        amrginLeft:"auto",
+        marginRight:"auto", 
+        display:"block"
+        
+        
       },
       content:{
         padding:"8px 16px 8px 16px",
@@ -94,7 +104,7 @@
         
         {/* BUTTOMS PART */}
          <div className={classes.buttomDiv }>
-         <Button onClick={handleContinueToPurchasing} className={classes.buttom} variant="contained">
+         <Button onClick={handleContinueToPurchasing} color = 'secondary' className={classes.buttom} variant="contained">
            לסיום הזמנה
            </Button>
           <Button className={classes.buttom} variant="contained" 
@@ -122,8 +132,12 @@
           
             <CardMedia
               className={classes.media}
+              style = {{ marginLeft :"-8px", marginRight: "-8px"}}
+              
+              component="img"
               image="https://applemagazine.com/wp-content/uploads/2021/09/146898-phones-feature-the-best-apple-iphone-photos-ever-taken-image1-ydter7skel.jpg"
               title="Contemplative Reptile"
+              
             />
          </Grid>
          <Grid item xs={9}>
