@@ -22,72 +22,80 @@ import {BasketListProvider} from "../contexts/OrderListContext.jsx";
 
 import axios from "axios";
 
-import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
+import {
+    createTheme,
+    ThemeProvider,
+    StyledEngineProvider,
+    responsiveFontSizes,
+    adaptV4Theme,
+} from '@mui/material/styles';
 
 import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import VendorProductList from "./vendorPage/VendorProductList";
 
 
-let theme = createMuiTheme({
+let theme = createTheme(adaptV4Theme({
   typography: {
     fontFamily: "'Arimo', sans-serif",
   },
   direction: 'ltr'
-})  
+}))  
 theme = responsiveFontSizes(theme);
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-      <div>
-        {/* <UserProvider>  */}
-        
-        <BasketListProvider>
-
-              <Switch>
-                <Route exact path="/"> 
-                    <HeaderUi /> 
-                    <GridUi/>
-                    <Footer /> 
-                  </Route>  
-                  <Route exact path="/vendor">
-                    <VendorInputHeader />
-                    <InsertProduct/> 
-                  </Route> 
-                  <Route exact path="/signin">
-                      <SignIn />
-                  </Route>
-                  <Route exact path="/signup">
-                      <SignUp />
-                  </Route>
-                  <Route exact path="/vendorProductList">
-                      <VendorProductList />
-                  </Route>
-                  <Route exact path="/shoppingCart" >
-                      <ShoppingCart/>
-                  </Route>
-                  <Route exact path="/purchasingPage" >
-                      <PurchasingPage/>
-                  </Route>
-                  <Route exact path="/purchasedItemsList" >
-                      <PurchasedItemsList/>
-                  </Route>
-                  {/* <Route exact path="/test1" >
-                      <Test1/>
-                  </Route>
-                  <Route exact path="/test" >
-                      <Test/>
-                  </Route> */}
+      <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <Router>
+            <div>
+              {/* <UserProvider>  */}
               
-              </Switch>
+              <BasketListProvider>
 
-            </BasketListProvider>
-          
-        {/* </UserProvider> */}
-      </div>
-      </Router>
-    </ThemeProvider>
+                    <Switch>
+                      <Route exact path="/"> 
+                          <HeaderUi /> 
+                          <GridUi/>
+                          <Footer /> 
+                        </Route>  
+                        <Route exact path="/vendor">
+                          <VendorInputHeader />
+                          <InsertProduct/> 
+                        </Route> 
+                        <Route exact path="/signin">
+                            <SignIn />
+                        </Route>
+                        <Route exact path="/signup">
+                            <SignUp />
+                        </Route>
+                        <Route exact path="/vendorProductList">
+                            <VendorProductList />
+                        </Route>
+                        <Route exact path="/shoppingCart" >
+                            <ShoppingCart/>
+                        </Route>
+                        <Route exact path="/purchasingPage" >
+                            <PurchasingPage/>
+                        </Route>
+                        <Route exact path="/purchasedItemsList" >
+                            <PurchasedItemsList/>
+                        </Route>
+                        {/* <Route exact path="/test1" >
+                            <Test1/>
+                        </Route>
+                        <Route exact path="/test" >
+                            <Test/>
+                        </Route> */}
+                    
+                    </Switch>
+
+                  </BasketListProvider>
+                
+              {/* </UserProvider> */}
+            </div>
+            </Router>
+          </ThemeProvider>
+      </StyledEngineProvider>
   );
 }
 
