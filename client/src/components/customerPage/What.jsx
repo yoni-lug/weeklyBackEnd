@@ -1,19 +1,19 @@
 import React from "react";
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 const head_P1 = "סחורה משובחת וטרייה מהחקלאים";
 const head_P2 = "ניתן להזמין עד ליום רביעי שעה 20:00";
 const head_P3 = "הזמנות יסופקו ביום חמישי"
 
 function What (){
-    return(
+    return (
         <div>
             <Container component="div" maxWidth="lg"  >
                 <Grid container spacing={2}  
-                    style={{textAlign:"center"}} justify="center"
+                    style={{textAlign:"center"}} justifyContent="center"
                     >
                     <Grid item xs={12} lg={4}>
                         <Typography variant= 'h5' >
@@ -36,8 +36,7 @@ function What (){
             </Container>
             
         </div>
-         
-    )
+    );
 
 }
 

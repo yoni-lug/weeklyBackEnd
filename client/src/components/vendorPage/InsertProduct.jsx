@@ -1,18 +1,18 @@
 //NEED TO CHECK THE ASYNC EFFECT 
 
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import makeStyles from '@mui/styles/makeStyles';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import CheckBoxZones from './CheckBoxZones';
 import UploadImage from "./UploadImage"
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import defaultImage from "./defaultImage/default_transparent_image.jpg"
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {

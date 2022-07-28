@@ -27,14 +27,14 @@ import {
     ThemeProvider,
     StyledEngineProvider,
     responsiveFontSizes,
-    adaptV4Theme,
+   // adaptV4Theme,
 } from '@mui/material/styles';
 
 import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import VendorProductList from "./vendorPage/VendorProductList";
 
 
-let theme = createTheme(adaptV4Theme({
+let theme = createTheme(({
   typography: {
     fontFamily: "'Arimo', sans-serif",
   },
